@@ -7,15 +7,22 @@ import {
     NavInput } from './style';
 import { homeActionCreators } from '../../pages/home/store';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends PureComponent {
     render() {
         return(
             <HeaderWrapper>
-                <Logo/>
+                <Link to='/'>
+                    <Logo/>
+                </Link>
                 <Nav>
-                    <NavItem>注册</NavItem>
-                    <NavItem>写文章</NavItem>
+                    <Link to='/register'>
+                        <NavItem>注册</NavItem>
+                    </Link>
+                    <Link to='/newArticle'>
+                        <NavItem>写文章</NavItem>
+                    </Link>
                     <NavInput onKeyPress = {this.handleEnterKey.bind(this)}/>
                 </Nav>
             </HeaderWrapper>

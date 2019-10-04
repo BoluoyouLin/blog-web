@@ -47,4 +47,8 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: #eee;
   }
+
+  a {
+    text-decoration:none;
+  }
 `

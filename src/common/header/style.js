@@ -23,18 +23,17 @@ export const Logo = styled.div`
 `;
 
 export const Nav = styled.div`
-    width: 300px;
     height: 60px;
-    font-size: 20px;
+    font-size: 18px;
     position: absolute;
     top: 10px;
     right: 18%;
 `;
 
 export const NavItem = styled.div`
-    width: 60px;
+    margin-left: 10px;
     height: 100%;
-    color: #656363;
+    color: #fbd103;
     float: right;
     line-height: 60px;
     text-align: center;
