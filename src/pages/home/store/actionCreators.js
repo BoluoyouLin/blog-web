@@ -6,12 +6,9 @@ const loadHomeData = (data) => ({
     data
 })
 
-const searchArticles = (data) => ({
-    type: homeActionTypes.SEARCH_ARTICLE,
-    data: {
-        articles : data.articleList,
-        isSearch : true
-    }
+const setCurrentUser = (data) => ({
+    type: homeActionTypes.LOGIN,
+    data
 })
 
 export const getArticles = () => {
@@ -22,10 +19,25 @@ export const getArticles = () => {
     }
 }
 
-export const searchArticle = (keyword) => {
+export const login = (userName, password) => {
     return (dispatch) => {
-        axios.get('/api/loadData.json').then(res => {
-            dispatch(searchArticles(res.data.data))
-        })
+        let currentUser = {
+            userName:'linwei',
+            userId: 1,
+            portrait : ''
+        }
+        dispatch(setCurrentUser(currentUser))
+    }
+}
+
+export const showBar = () => {
+    return {
+        type: homeActionTypes.SHOW_BAR
+    }
+}
+
+export const hiddenBar = () => {
+    return {
+        type: homeActionTypes.HIDDEN_BAR
     }
 }

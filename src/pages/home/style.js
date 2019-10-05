@@ -83,9 +83,12 @@ export const Input = styled.input`
     margin-bottom: 10px;
     text-indent: 10px;
     font-size: 14px;
+    &.error {
+        outline: red solid;
+        background: #fff;
+    }
     &:focus {
         outline: #fff46f solid;
-        border-shadow: 0 0 2px #fff46f;
         background: #fff;
     }
 `;
@@ -98,4 +101,30 @@ export const LoginBottom = styled.div`
     margin-bottom: 10px;
     text-align: center;
     cursor: pointer;
+`;
+
+// userInfo.js
+
+export const UserInfoWrapper = styled.div`
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 150px; 
+`;
+
+export const Portrait = styled.img`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 60px;
+`;
+
+export const UserName = styled.p`
+    width: 90%;
+    line-height: 30px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
 `;

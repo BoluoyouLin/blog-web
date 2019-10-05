@@ -13,8 +13,6 @@ export const TopBar = styled.div`
     position: relative;
     background-color: #fff;
     border-bottom: 1px solid #fff46f;
-    position: fixed;
-    top:0;
 `;
 
 export const Title = styled.div`
@@ -42,7 +40,6 @@ export const Body = styled.div`
     width: 90%;
     background-color: #fff;
     padding: 20px 5%;
-    margin-top: 70px;
 `;
 
 export const Label = styled.p`
@@ -54,7 +51,7 @@ export const Label = styled.p`
 export const Input = styled.input`
     width: 100%;
     height: 35px;
-    color: #e3e3e3;
+    color: #000;
     background: #fff;
     font-size: 16px;
     text-indent: 10px;

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import Header from '../../common/header';
 import List from './components/list';
 import Login from './components/login';
+import UserInfo from './components/userInfo';
 import { 
     HomeWrapper,
     BodyWrapper,
@@ -19,7 +20,7 @@ class Home extends PureComponent {
                     <LeftWrapper>
                         <List />
                     </LeftWrapper>
-                    { this.props.isSearch ? null : <Login />}
+                    { this.props.currentUser === undefined ? <Login /> : <UserInfo /> }
                 </BodyWrapper>
             </HomeWrapper>
         )
@@ -32,7 +33,7 @@ class Home extends PureComponent {
 
 const mapState = (state) => {
     return {
-        isSearch: state.getIn(['home', 'isSearch'])
+        currentUser: state.getIn(['home', 'currentUser'])
     }
 }
 
@@ -40,7 +41,8 @@ const mapDispatch = (dispatch) => {
     return {
         initData() {
             dispatch(homeActionCreators.getArticles())
-        }
+        },
+
     }
 }
 

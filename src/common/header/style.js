@@ -58,3 +58,42 @@ export const NavInput = styled.input.attrs({
         background: #fff;
     }
 `;
+
+export const Portrait = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    float: right;
+    margin: 10px;
+    cursor: pointer;
+`;
+
+export const PersonnelBar = styled.div`
+    width: 150px;
+    height: 200px;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 70px;
+    border: 1px solid #eee;
+    border-radius: 4px; 
+    &.hidden {
+        visibility: hidden;
+    }
+    &.show {
+        visibility : initial;
+    }
+`;
+
+export const BarItem = styled.div`
+    width: 120px;
+    line-height: 30px;
+    padding: 5px 15px;
+    font-size: 16px;
+    color: #8c8686;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    .zoom {
+        margin-right: 15px;
+    }
+`;

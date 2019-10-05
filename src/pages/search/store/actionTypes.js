@@ -1,0 +1,1 @@
+export const SEARCH_ARTICLES = 'search_article';
