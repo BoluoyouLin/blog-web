@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const PersonnelWrapper = styled.div`
-    width: 70%;
-    padding: 20px 15%;
+    width: 900px;
+    margin: 0 auto;
+    padding-top: 20px;
 `;

@@ -1,22 +1,29 @@
-import React ,{ PureComponent } from 'react';
-import { 
-    ListWrapper,
+import React, { PureComponent, Fragment } from 'react';
+import { connect } from 'react-redux';
+import Nothing from '../../../../../common/nothing';
+import {
     ListItem,
     ListTitle,
     Information,
     ListBottom,
     BottomItem,
     ArticleText
-} from '../style';
-import { connect } from 'react-redux';
+} from '../styled';
+import { personnelActionCreators } from '../../../store';
 
-class List extends PureComponent {
+class Like extends PureComponent {
     render() {
+
+        const { likes } = this.props;
+
         return (
-            <ListWrapper>
+            <Fragment>
                 {
-                    this.props.articles.map( item => {
-                        return (
+                    !likes ?
+                    <Nothing />
+                    :
+                    likes.map( item => {
+                        return(
                             <ListItem key={item.id}>
                                 <Information>
                                     <ArticleText>{item.author}</ArticleText>
@@ -31,15 +38,25 @@ class List extends PureComponent {
                         )
                     })
                 }
-            </ListWrapper>
+            </Fragment>
         )
     }
-}
 
-const mapState = (state) => {
-    return {
-        articles: state.getIn(['home', 'articles'])
+    componentDidMount() {
+        this.props.getLike();
     }
 }
 
-export default connect(mapState)(List);
+const mapState = (state) => ({
+    likes : state.getIn(['personnel', 'likes'])
+})
+
+const mapDispatch = (dispatch) => {
+    return {
+        getLike() {
+            dispatch(personnelActionCreators.getLike())
+        }
+    }
+}
+
+export default connect(mapState, mapDispatch)(Like);

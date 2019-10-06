@@ -9,6 +9,7 @@ import { NewArticle } from './pages/article';
 import Search  from './pages/search'
 import { GlobalStyleByIconfont } from './statics/iconfont/iconfont';
 import Personnel from './pages/personnel';
+import Information from './pages/personnel/pages/information';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/newArticle" exact component={NewArticle}></Route>
         <Route path="/search" exact component={Search}></Route>
         <Route path="/personnel" exact component={Personnel}></Route>
+        <Route path="/information" exact component={Information}></Route>
       </BrowserRouter>
     </Provider>
   );

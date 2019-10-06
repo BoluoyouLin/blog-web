@@ -38,6 +38,12 @@ export const ListTitle = styled.p`
     cursor: pointer;
 `;
 
+export const ArticleText = styled.span`
+    font-size: 15px;
+    color: #878787;
+    margin: 0 4px;
+`;
+
 export const Information = styled.div`
     font-size: 14px;
     color: #9e9b9b;

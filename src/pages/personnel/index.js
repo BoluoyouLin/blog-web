@@ -3,6 +3,7 @@ import Header from '../../common/header';
 import {
     PersonnelWrapper
 } from './style';
+import Main from './pages/main';
 
 class Personnel extends PureComponent {
     render() {
@@ -10,7 +11,7 @@ class Personnel extends PureComponent {
             <Fragment>
                 <Header />
                 <PersonnelWrapper>
-                    
+                    <Main />
                 </PersonnelWrapper>
             </Fragment>
         )

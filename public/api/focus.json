@@ -1,0 +1,30 @@
+{
+    "data" : {
+        "focus" :[
+            {
+                "userId" : 1,
+                "userName" : "小林",
+                "portrait" : "",
+                "desc" : ""
+            },
+            {
+                "userId" : 2,
+                "userName" : "小林",
+                "portrait" : "",
+                "desc" : ""
+            },
+            {
+                "userId" : 3,
+                "userName" : "小林",
+                "portrait" : "",
+                "desc" : ""
+            },
+            {
+                "userId" : 4,
+                "userName" : "小林",
+                "portrait" : "",
+                "desc" : ""
+            }
+        ]
+    }
+}
