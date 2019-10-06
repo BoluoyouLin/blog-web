@@ -33,10 +33,12 @@ export const Input = styled.input`
     font-size: 16px;
     border: 0;
     margin-bottom: 10px;
+    text-indent: 10px;
     &:focus {
         outline: #fff46f solid;
         border-shadow: 0 0 2px #fff46f;
         background: #fff;
+        color: #333333;
     }
 `;
  

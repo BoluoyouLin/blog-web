@@ -37,6 +37,7 @@ export const InfoWrapper = styled.div`
     padding: 32px 48px;
     background: #fff;
     margin-top: 10px;
+    overflow: hidden;
 `;
 
 export const InfoTitle = styled.p`
@@ -90,5 +91,19 @@ export const NormalText = styled.p`
     cursor: pointer;
 `;
 
+// modifyPassword.js
+export const Button = styled.div`
+    width: 95px;
+    height: 35px;
+    font-size: 16px;
+    margin-top: 20px;
+    background: #fdb103;
+    color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 35px;
+    float: right;
+    cursor: pointer;
+`;
 
 

@@ -7,6 +7,7 @@ import {
 } from './style';
 import Header from '../../../../common/header';
 import PersonnelInfo from './components/personnelInfo';
+import ModifyPassword from './components/modifyPassword';
 
 class Information extends PureComponent {
 
@@ -36,6 +37,7 @@ class Information extends PureComponent {
                         >修改密码</TopBarItem>
                     </TopBar>
                     { onPersonnel ? <PersonnelInfo /> : null}
+                    { onPassword ? <ModifyPassword /> : null}
                 </InformationBody>
             </InformationWrapper>
         )

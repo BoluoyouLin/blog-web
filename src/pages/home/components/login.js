@@ -7,6 +7,7 @@ import {
 } from '../style';
 import { connect } from 'react-redux';
 import { homeActionCreators } from '../store';
+import Error from '../../../common/error';
 
 class Login extends PureComponent {
 
@@ -15,14 +16,14 @@ class Login extends PureComponent {
         this.state = {
             userName : '',
             password : '',
-            userNameTip : false,
-            passwordTip : false
+            error : false,
+            message : ''
         }
     }
 
     render() {
 
-        const { userName, password, userNameTip, passwordTip } = this.state;
+        const { userName, password, error, message } = this.state;
 
         return(
             <LoginWrapper>
@@ -31,16 +32,18 @@ class Login extends PureComponent {
                     placeholder='用户名' 
                     value = {userName}
                     onChange = {this.handleChangeUserName.bind(this)}
-                    className = { userNameTip ? 'error' : ''}
                     />
                     <Input 
                     placeholder='密码' 
                     value = {password}
                     onChange = {this.handleChangePassword.bind(this)}
                     type = 'password'
-                    className = { passwordTip ? 'error' : ''}
                     />
                     <LoginBottom onClick = {() => this.handleLogin()}>登录</LoginBottom>
+                    <Error 
+                    isShow = { error }
+                    message = { message }
+                    />
             </LoginWrapper>
         )
     }
@@ -59,23 +62,28 @@ class Login extends PureComponent {
 
     handleLogin() {
         if(this.state.userName === '') {
-            this.setState({
-                userNameTip : true
-            })
+            this.showError('用户名不能为空')
         }
         else if( this.state.password === '') {
-            this.setState({
-                userNameTip : false,
-                passwordTip : true
-            })
+            this.showError('密码不能为空')
         }
         else {
             this.props.login(this.state.userName, this.state.password)
-            this.setState({
-                userNameTip : false,
-                passwordTip : false
-            })
         }
+    }
+
+    showError(message) {
+        this.setState({
+            error: true,
+            message: message
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    error: false,
+                    message: ''
+                })
+            }, 2000)
+        })
     }
     
 }

@@ -8,7 +8,6 @@ const defaultState = fromJS({
 })
 
 export default (state = defaultState, action) => {
-    let user;
     switch(action.type) {
         case homeActionTypes.LOAD_HOME_DATA :
             return state.set('articles', action.data.articleList);
@@ -19,17 +18,11 @@ export default (state = defaultState, action) => {
         case homeActionTypes.HIDDEN_BAR :
             return state.set('showBar', false);
         case homeActionTypes.CHANGE_USER_NAME :
-            user = JSON.parse(JSON.stringify(state.currentUser))
-            user.userName = action.data
-            return state.set('current', user);
+            return state.set('current', state.get('currentUser').userName = action.data);
         case homeActionTypes.CHANGE_DESC :
-            user = JSON.parse(JSON.stringify(state.currentUser))
-            user.desc = action.data
-            return state.set('current', user);
+            return state.set('current', state.get('currentUser').desc = action.data);
         case homeActionTypes.CHANGE_HOME_PAGE :
-            user = JSON.parse(JSON.stringify(state.currentUser))
-            user.homePage = action.data
-            return state.set('current', user);
+            return state.set('current', state.get('currentUser').homePage = action.data);
         default:
             return state;
     }

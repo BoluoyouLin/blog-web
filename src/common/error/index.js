@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import {
+    ErrorWrapper
+} from './styled'
 
 class Error extends Component {
     render() {
         return (
-            <div>错误信息</div>
+            <ErrorWrapper
+            className = {this.props.isShow ? 'show' : ''}
+            >
+                {this.props.message}
+            </ErrorWrapper>
         )
     }
 }

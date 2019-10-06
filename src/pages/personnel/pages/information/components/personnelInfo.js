@@ -10,6 +10,7 @@ import {
 } from '../style';
 import { connect } from 'react-redux';
 import { homeActionCreators } from '../../../../home/store';
+import Error from '../../../../../common/error';
 
 
 class PersonnelInfo extends PureComponent {
@@ -22,13 +23,15 @@ class PersonnelInfo extends PureComponent {
             onHomePage: false,
             userName: '',
             desc: '',
-            homePage: ''
+            homePage: '',
+            error: false,
+            message: ''
         }
     }
 
     render() {
 
-        const { onUserName, onHomePage, onDesc, userName, desc, homePage } = this.state;
+        const { onUserName, onHomePage, onDesc, userName, desc, homePage, error, message } = this.state;
 
         return(
             <InfoWrapper>
@@ -48,7 +51,9 @@ class PersonnelInfo extends PureComponent {
                         onUserName 
                         ?
                         <Fragment>
-                            <OptionText>保存</OptionText>
+                            <OptionText
+                            onClick = {() => this.saveUserName()}
+                            >保存</OptionText>
                             <NormalText
                             onClick = {() => this.handleOnUserName()}
                             >取消</NormalText>
@@ -71,7 +76,9 @@ class PersonnelInfo extends PureComponent {
                         onDesc 
                         ?
                         <Fragment>
-                            <OptionText>保存</OptionText>
+                            <OptionText
+                            onClick = {() => this.saveDesc()}
+                            >保存</OptionText>
                             <NormalText
                             onClick = {() => this.handleOnDesc()}
                             >取消</NormalText>
@@ -94,7 +101,9 @@ class PersonnelInfo extends PureComponent {
                         onHomePage 
                         ?
                         <Fragment>
-                            <OptionText>保存</OptionText>
+                            <OptionText
+                            onClick = {() => this.saveHomePage()}
+                            >保存</OptionText>
                             <NormalText
                             onClick = {() => this.handleOnHomePage()}
                             >取消</NormalText>
@@ -105,6 +114,10 @@ class PersonnelInfo extends PureComponent {
                         >修改</OptionText>
                     }
                 </InfoItem>
+                <Error 
+                isShow = { error }
+                message = { message }
+                />
             </InfoWrapper>
         )
     }
@@ -169,34 +182,39 @@ class PersonnelInfo extends PureComponent {
         })
     }
 
-    saveUserName(e) {
-        let value = e.target.value;
+    saveUserName() {
+        let value = this.state.userName
         if(value) {
-            this.props.changeUserName(value)
+            this.props.changeUserName(value);
+            this.handleOnUserName();
         } 
         else {
-
+            this.showError('用户名不能为空')
         }
     }
 
-    saveDesc(e) {
-        let value = e.target.value;
-        if(value) {
-            this.props.changeDesc(value)
-        } 
-        else {
-            
-        }
+    saveDesc() {
+        this.props.changeDesc(this.state.desc);
+        this.handleOnDesc();
     }
 
-    saveHomePage(e) {
-        let value = e.target.value;
-        if(value) {
-            this.props.changeHomePage(value)
-        } 
-        else {
-            
-        }
+    saveHomePage() {
+        this.props.changeHomePage(this.state.homePage);
+        this.handleOnHomePage();
+    }
+
+    showError(message) {
+        this.setState({
+            error: true,
+            message: message
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    error: false,
+                    message: ''
+                })
+            }, 2000)
+        })
     }
 }
 

@@ -39,3 +39,7 @@ export const getLike = (userId) => {
         })
     }
 }
+
+export const modifyPassword = (oldPassword, newPassword) => {
+    console.log(oldPassword, newPassword)
+}

@@ -89,10 +89,6 @@ export const Input = styled.input`
     margin-bottom: 10px;
     text-indent: 10px;
     font-size: 14px;
-    &.error {
-        outline: red solid;
-        background: #fff;
-    }
     &:focus {
         outline: #fff46f solid;
         background: #fff;
