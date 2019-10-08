@@ -9,7 +9,7 @@ import {
  } from './style';
  import { Link } from 'react-router-dom';
  import Error from '../../common/error';
- import { registerActionCreators } from './store';
+ import axios from 'axios';
 
 class Register extends PureComponent {
 
@@ -89,6 +89,9 @@ class Register extends PureComponent {
         else if(!this.state.password) {
             this.showError('密码不能为空')
         }
+        else if(this.state.password.length < 6 || this.state.password.length > 16) {
+            this.showError('密码长度为6-16')
+        }
         else if(!this.state.checkPassword) {
             this.showError('再次输入密码不能为空')
         }
@@ -96,11 +99,22 @@ class Register extends PureComponent {
             this.showError('两次输入的密码不一致')
         }
         else {
-            registerActionCreators.register(this.state.userName, this.state.password)
+            let userName = this.state.userName;
+            let password = this.state.password;
+            axios.post('http://localhost:8080/user/insert', { userName, password }).then(res => {
+                if(res.data.status) {
+                    this.showError(res.data.message, () => {
+                        this.props.history.push('/')
+                    })
+                }
+                else {
+                    this.showError(res.data.message, function(){})
+                }
+            })
         }
     }
 
-    showError(message) {
+    showError(message, callback) {
         this.setState({
             error: true,
             message: message
@@ -109,7 +123,7 @@ class Register extends PureComponent {
                 this.setState({
                     error: false,
                     message: ''
-                })
+                }, () => callback())
             }, 2000)
         })
     }

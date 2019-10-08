@@ -9,7 +9,8 @@ import {
 } from '../style';
 import { connect } from 'react-redux';
 import Error from '../../../../../common/error';
-import { personnelActionCreators } from '../../../store';
+import axios from 'axios';
+
 
 class ModifyPassword extends PureComponent {
 
@@ -27,6 +28,7 @@ class ModifyPassword extends PureComponent {
     render() {
 
         const { oldPassword, newPassword, checkPassword, error, message } = this.state;
+        const { currentUser } = this.props;
 
         return (
             <InfoWrapper>
@@ -59,7 +61,7 @@ class ModifyPassword extends PureComponent {
                     />
                 </InfoItem>
                 <Button
-                onClick = {() => this.savePassword()}
+                onClick = {() => this.savePassword(currentUser.id)}
                 >保存修改</Button>
                 <Error 
                 isShow = { error }
@@ -87,12 +89,26 @@ class ModifyPassword extends PureComponent {
         })
     }
 
-    savePassword() {
-        if(this.state.newPassword === this.state.checkPassword) {
-            personnelActionCreators.modifyPassword(this.state.oldPassword, this.state.newPassword);
+    savePassword(userId) {
+        if(this.state.newPassword !== this.state.checkPassword) {
+            this.showError('两次输入的新密码不一致')
+        }
+        else if(this.state.newPassword.length < 6 || this.state.newPassword.length > 16){
+            this.showError('密码长度为6-16')
         }
         else {
-            this.showError('两次输入的新密码不一致')
+            let newPassword = this.state.newPassword;
+            let oldPassword = this.state.oldPassword;
+            axios.post('http://localhost:8080/user/modifyPassword', 
+            {userId, newPassword, oldPassword})
+            .then( res => {
+                this.showError(res.data.message)
+                this.setState({
+                    oldPassword : '',
+                    newPassword : '',
+                    checkPassword : ''
+                })
+            })
         }
     }  
     
@@ -106,7 +122,7 @@ class ModifyPassword extends PureComponent {
                     error: false,
                     message: ''
                 })
-            }, 2000)
+            }, 1000)
         })
     }
     

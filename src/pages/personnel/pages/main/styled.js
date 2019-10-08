@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 // userCard.js
 export const CardWrapper = styled.div`
-    width: 70%;
+    width: 30%;
     height: 160px;
     background: #fff;
     display: flex;
+    order: 1;
 `;
 
 export const Portrait = styled.img`
@@ -60,9 +61,9 @@ export const InfoButton = styled.div`
 // content.js
 
 export const ContentWrapper = styled.div`
-    width: 70%;
-    margin: 20px 0;
+    width: 65%;
     background: #fff;
+    margin-right: 5%;
 `;
 
 export const ContentBar = styled.div`

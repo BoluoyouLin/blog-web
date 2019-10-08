@@ -28,8 +28,8 @@ export const Input = styled.input`
     width: 100%;
     line-height: 35px;
     background-color: #eee;
-    color: #e3e3e3;
-    text-indent: 10px;
+    color: #333333;
+    text-indent: 20px;
     font-size: 16px;
     border: 0;
     margin-bottom: 10px;
@@ -38,7 +38,6 @@ export const Input = styled.input`
         outline: #fff46f solid;
         border-shadow: 0 0 2px #fff46f;
         background: #fff;
-        color: #333333;
     }
 `;
  

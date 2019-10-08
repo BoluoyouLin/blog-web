@@ -6,7 +6,7 @@ const loadHomeData = (data) => ({
     data
 })
 
-const setCurrentUser = (data) => ({
+const loginAfter = (data) => ({
     type: homeActionTypes.LOGIN,
     data
 })
@@ -36,14 +36,24 @@ export const getArticles = () => {
 
 export const login = (userName, password) => {
     return (dispatch) => {
-        let currentUser = {
-            userName:'linwei',
-            userId: 1,
-            portrait : '',
-            desc: '一个前端热爱者',
-            homePage: ''
-        }
-        dispatch(setCurrentUser(currentUser))
+        axios.post('http://localhost:8080/user/login', {userName, password}).then(res => {
+            let data;
+            if(res.data.status) {
+                data = {
+                    currentUser : res.data.data,
+                    message : res.data.message,
+                    status : true
+                }
+            }
+            else {
+                data = {
+                    currentUser : undefined,
+                    message : res.data.message,
+                    status : res.data.status
+                }
+            }
+            dispatch(loginAfter(data))
+        })
     }
 }
 
@@ -59,23 +69,61 @@ export const hiddenBar = () => {
     }
 }
 
-export const modifyUserName = (userName) => {
-    console.log(userName)
+export const modifyUserName = (userName, id) => {
     return (dispatch) => {
-        dispatch(changeUserName(userName))
+        axios.post('http://localhost:8080/user/modifyUserName',
+        {userName, id}
+        ).then(res => {
+            if(res.data.status) {
+                dispatch(changeUserName({
+                    userName, 
+                    message : res.data.message,
+                    show : true
+                }))
+            }
+        }) 
     }
 }
 
-export const modifyDesc = (desc) => {
-    console.log(desc)
+export const modifyDesc = (description, id) => {
     return (dispatch) => {
-        dispatch(changeDesc(desc))
+        axios.post('http://localhost:8080/user/modifyDescription',
+        {description, id}
+        ).then(res => {
+            if(res.data.status) {
+                dispatch(changeDesc({
+                    description, 
+                    message : res.data.message,
+                    show : true
+                }))
+            }
+        }) 
     }
 }
 
-export const modifyHomePage = (homePage) => {
-    console.log(homePage)
+export const modifyHomePage = (homePage, id) => {
     return (dispatch) => {
-        dispatch(changeHomePage(homePage))
+        axios.post('http://localhost:8080/user/modifyHomePage',
+        {homePage, id}
+        ).then(res => {
+            if(res.data.status) {
+                dispatch(changeHomePage({
+                    homePage, 
+                    message : res.data.message,
+                    show : true
+                }))
+            }
+        }) 
     }
 }
+
+export const changeLoginStatus = () => ({
+    type : homeActionTypes.CHANGE_LOGIN_STATUS,
+    status : false
+})
+
+export const changeHeaderTips = (data) => ({
+    type : homeActionTypes.CHANGE_HEADER_STATUS,
+    data
+})
+

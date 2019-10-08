@@ -14,25 +14,32 @@ import { Link } from 'react-router-dom';
 class UserCard extends PureComponent {
     render() {
 
-        const { currentUser } = this.props;
+        const { mainUser, isCurrent } = this.props;
         return (
             <CardWrapper>
                 <Portrait 
-                src = {portraitImg}
+                src = {mainUser.portrait || portraitImg}
                 />
                 <TextBox>
-                    <UserName>{currentUser.userName}</UserName>
-                    <Desc>{currentUser.desc}</Desc>
+                    <UserName>{mainUser.userName}</UserName>
+                    <Desc>{mainUser.description}</Desc>
                 </TextBox>
-                <Link to='/information'>
-                    <InfoButton>编辑个人信息</InfoButton>
-                </Link>
+                {
+                    isCurrent 
+                    ?
+                    <Link to='/information'>
+                        <InfoButton>编辑个人信息</InfoButton>
+                    </Link>
+                    :
+                    null
+                }
             </CardWrapper>
         )
     }
 }
 const mapState = (state) =>({
-    currentUser : state.getIn(['home', 'currentUser'])
+    mainUser : state.getIn(['personnel', 'mainUser']),
+    isCurrent : state.getIn(['personnel', 'isCurrent'])
 })
 
 export default connect(mapState)(UserCard);

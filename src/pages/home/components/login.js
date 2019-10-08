@@ -82,7 +82,7 @@ class Login extends PureComponent {
                     error: false,
                     message: ''
                 })
-            }, 2000)
+            }, 1000)
         })
     }
     

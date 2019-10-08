@@ -2,17 +2,22 @@ import axios from 'axios';
 import { personnelActionTypes } from './index';
 
 const changeFocus = (data) => ({
-    type: personnelActionTypes.CHANGE_FOCUS,
+    type : personnelActionTypes.CHANGE_FOCUS,
     data
 })
 
 const changeArticle = (data) => ({
-    type: personnelActionTypes.CHANGE_ARTICLES,
+    type : personnelActionTypes.CHANGE_ARTICLES,
     data
 })
 
 const changeLike = (data) => ({
-    type: personnelActionTypes.CHANGE_LIKE,
+    type : personnelActionTypes.CHANGE_LIKE,
+    data
+})
+
+const changeMainUser = (data) => ({
+    type : personnelActionTypes.CHANGE_MAIN_USER,
     data
 })
 
@@ -40,6 +45,16 @@ export const getLike = (userId) => {
     }
 }
 
-export const modifyPassword = (oldPassword, newPassword) => {
-    console.log(oldPassword, newPassword)
+export const getMainUser = (userId, isCurrent) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/user/getUserById',
+        {id : userId}
+        ).then(res => {
+            dispatch(changeMainUser({
+                mainUser : res.data.data,
+                isCurrent
+            }))
+        })
+    }
 }
+

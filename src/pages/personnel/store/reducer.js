@@ -4,7 +4,16 @@ import { personnelActionTypes } from './index';
 const defaultState = fromJS({
     focus : undefined,
     likes : undefined,
-    userArticles : undefined
+    userArticles : undefined,
+    mainUser : {
+        id : undefined,
+        userName : '',
+        description : '',
+        portrait : '',
+        homePage : '',
+        createAt : ''
+    },
+    isCurrent : false
 })
 
 export default (state = defaultState, action) => {
@@ -20,6 +29,11 @@ export default (state = defaultState, action) => {
         case personnelActionTypes.CHANGE_LIKE :
             return state.merge({
                 'likes' : action.data.articleList
+            });
+        case personnelActionTypes.CHANGE_MAIN_USER :
+            return state.merge({
+                'mainUser' : action.data.mainUser,
+                'isCurrent' : action.data.isCurrent
             });
         default :
             return state;

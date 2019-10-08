@@ -177,7 +177,7 @@ class PersonnelInfo extends PureComponent {
     initData() {
         this.setState({
             userName : this.props.currentUser.userName,
-            desc : this.props.currentUser.desc,
+            desc : this.props.currentUser.description,
             homePage : this.props.currentUser.homePage
         })
     }
@@ -185,8 +185,9 @@ class PersonnelInfo extends PureComponent {
     saveUserName() {
         let value = this.state.userName
         if(value) {
-            this.props.changeUserName(value);
+            this.props.changeUserName(value, this.props.currentUser.id);
             this.handleOnUserName();
+            this.initData();
         } 
         else {
             this.showError('用户名不能为空')
@@ -194,13 +195,15 @@ class PersonnelInfo extends PureComponent {
     }
 
     saveDesc() {
-        this.props.changeDesc(this.state.desc);
+        this.props.changeDesc(this.state.desc, this.props.currentUser.id);
         this.handleOnDesc();
+        this.initData();
     }
 
     saveHomePage() {
-        this.props.changeHomePage(this.state.homePage);
+        this.props.changeHomePage(this.state.homePage, this.props.currentUser.id);
         this.handleOnHomePage();
+        this.initData();
     }
 
     showError(message) {
@@ -223,14 +226,14 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-    changeUserName(userName) {
-        dispatch(homeActionCreators.modifyUserName(userName));
+    changeUserName(userName, id) {
+        dispatch(homeActionCreators.modifyUserName(userName, id));
     },
-    changeDesc(desc) {
-        dispatch(homeActionCreators.modifyDesc(desc));
+    changeDesc(desc, id) {
+        dispatch(homeActionCreators.modifyDesc(desc, id));
     },
-    changeHomePage(homePage) {
-        dispatch(homeActionCreators.modifyHomePage(homePage));
+    changeHomePage(homePage, id) {
+        dispatch(homeActionCreators.modifyHomePage(homePage, id));
     }
 })
 

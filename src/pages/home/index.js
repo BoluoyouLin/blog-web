@@ -10,9 +10,11 @@ import {
 } from './style';
 import { connect } from 'react-redux';
 import { homeActionCreators } from './store';
+import Error from '../../common/error';
 
 class Home extends PureComponent {
     render() {
+        const { message, status, currentUser } = this.props; 
         return (
             <HomeWrapper>
                 <Header />
@@ -20,8 +22,12 @@ class Home extends PureComponent {
                     <LeftWrapper>
                         <List />
                     </LeftWrapper>
-                    { this.props.currentUser === undefined ? <Login /> : <UserInfo /> }
+                    { currentUser === undefined ? <Login /> : <UserInfo /> }
                 </BodyWrapper>
+                <Error 
+                isShow = { status }
+                message = { message }
+                />
             </HomeWrapper>
         )
     }
@@ -29,11 +35,17 @@ class Home extends PureComponent {
     componentDidMount() {
         this.props.initData()
     }
+
+    componentDidUpdate() {
+        this.props.changeLoginStatus()
+    }
 }
 
 const mapState = (state) => {
     return {
-        currentUser: state.getIn(['home', 'currentUser'])
+        currentUser : state.getIn(['home', 'currentUser']),
+        message : state.getIn(['home', 'message']),
+        status : state.getIn(['home', 'loginStatus'])
     }
 }
 
@@ -42,7 +54,11 @@ const mapDispatch = (dispatch) => {
         initData() {
             dispatch(homeActionCreators.getArticles())
         },
-
+        changeLoginStatus() {
+            setTimeout(() => {
+                dispatch(homeActionCreators.changeLoginStatus())
+            }, 1000)
+        }
     }
 }
 

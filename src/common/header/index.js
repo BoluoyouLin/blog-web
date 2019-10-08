@@ -14,12 +14,14 @@ import { homeActionCreators } from '../../pages/home/store';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import portrait from '../../statics/images/portrait.png';
+import Error from '../error';
+import { personnelActionCreators } from '../../pages/personnel/store';
 
 class Header extends PureComponent {
 
     render() {
 
-        const { currentUser, showBar, handleShowBar} = this.props;
+        const { currentUser, showBar, handleShowBar, isShow, message} = this.props;
 
         return(
             <HeaderWrapper>
@@ -49,15 +51,19 @@ class Header extends PureComponent {
                             </BarItem>
                         </Link>
                         <Link to='/personnel'>
-                            <BarItem>
+                            <BarItem
+                            onClick = { () => this.handleGetMainUser(currentUser.id)}
+                            >
                                 <span className="iconfont zoom">&#xe679;</span>
                                 我的主页
                             </BarItem>
                         </Link>
-                        <BarItem>
-                            <span className="iconfont zoom">&#xe771;</span>
-                            设置
-                        </BarItem>
+                        <Link to='/information'>
+                            <BarItem>
+                                <span className="iconfont zoom">&#xe771;</span>
+                                设置
+                            </BarItem>
+                        </Link>
                         <BarItem>
                             <span className="iconfont zoom">&#xe613;</span>
                             登出
@@ -68,6 +74,10 @@ class Header extends PureComponent {
                     </Link>
                     <NavInput onKeyPress = {this.handleEnterKey.bind(this)}/>
                 </Nav>
+                <Error 
+                isShow = { isShow }
+                message = { message }
+                />
             </HeaderWrapper>
         )
     }
@@ -79,16 +89,26 @@ class Header extends PureComponent {
         }
     }
 
+    handleGetMainUser(userId) {
+        this.props.goPersonnelMainPage(userId)
+    }
+
     componentDidMount() {
         document.addEventListener("click", () => {
             this.props.handleHiddenBar()
         })
     }
+
+    componentDidUpdate() {
+        this.props.handleHiddenError();
+    }
 }
 
 const mapState = (state) => ({
     currentUser : state.getIn(['home', 'currentUser']),
-    showBar : state.getIn(['home', 'showBar'])    
+    showBar : state.getIn(['home', 'showBar']),
+    isShow : state.getIn(['home', 'headerTipStatus']),
+    message : state.getIn(['home', 'headerTips'])
 })
 
 const mapDispatch = (dispatch) => {
@@ -102,6 +122,17 @@ const mapDispatch = (dispatch) => {
         },
         handleHiddenBar() {
             dispatch(homeActionCreators.hiddenBar())
+        },
+        handleHiddenError() {
+            setTimeout(() => {
+                dispatch(homeActionCreators.changeHeaderTips({
+                    status : false,
+                    message : ''
+                }))
+            }, 2000)
+        },
+        goPersonnelMainPage(userId) {
+            dispatch(personnelActionCreators.getMainUser(userId, true))
         }
     }
 }

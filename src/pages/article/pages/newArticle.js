@@ -102,6 +102,7 @@ const mapDispatch = (dispatch) => {
         },
         addArticle(title, article, userId) {
             console.log(title, article, userId)
+            console.log(Object.prototype.toString.call(article))
             // dispatch(articleActionCreators.addArticle(title, article, userId))
             dispatch(articleActionCreators.clearTemp())
         },
