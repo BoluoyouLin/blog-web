@@ -4,6 +4,8 @@ import {
     PersonnelWrapper
 } from './style';
 import Main from './pages/main';
+import { connect } from 'react-redux';
+import { personnelActionCreators } from './store';
 
 class Personnel extends PureComponent {
     render() {
@@ -16,6 +18,28 @@ class Personnel extends PureComponent {
             </Fragment>
         )
     }
+
+    componentWillUnmount() {
+        this.props.changeMainUser();
+    }
 }
 
-export default Personnel;
+const mapState = (state) => ({})
+
+const mapDispatch = (dispatch) => ({
+    changeMainUser() {
+        dispatch(personnelActionCreators.changeMainUser({
+            mainUser : {
+                id : undefined,
+                userName : '',
+                description : '',
+                portrait : '',
+                homePage : '',
+                createAt : ''
+            },
+            isCurrent : false
+        }))
+    }
+})
+
+export default connect(mapState, mapDispatch)(Personnel);

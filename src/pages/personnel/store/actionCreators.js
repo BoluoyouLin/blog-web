@@ -16,30 +16,45 @@ const changeLike = (data) => ({
     data
 })
 
-const changeMainUser = (data) => ({
+export const changeMainUser = (data) => ({
     type : personnelActionTypes.CHANGE_MAIN_USER,
     data
 })
 
 export const getFocus = (userId) => {
+    console.log(userId)
     return (dispatch) => {
-        axios.get('/api/focus.json').then( res => {
+        axios.post('http://localhost:8080/user/getUserFocus',
+        {
+            id : userId
+        }
+        ).then( res => {
             dispatch(changeFocus(res.data.data))
         })
     }
 }
 
 export const getArticle = (userId) => {
+    console.log(userId)
     return (dispatch) => {
-        axios.get('/api/articles.json').then( res => {
+        axios.post('http://localhost:8080/article/getArticleByUser',
+        {
+            id : userId
+        }
+        ).then( res => {
             dispatch(changeArticle(res.data.data))
         })
     }
 }
 
 export const getLike = (userId) => {
+    console.log(userId)
     return (dispatch) => {
-        axios.get('/api/loadData.json').then( res => {
+        axios.post('http://localhost:8080/like/getLikeArticleByUser',
+        {
+            id : userId
+        }
+        ).then( res => {
             dispatch(changeLike(res.data.data))
         })
     }

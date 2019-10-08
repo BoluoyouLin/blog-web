@@ -5,8 +5,8 @@ import {
     ListItem,
     ListTitle,
     Information,
-    ListBottom,
-    BottomItem,
+    // ListBottom,
+    // BottomItem,
     ArticleText
 } from '../styled';
 import { personnelActionCreators } from '../../../store';
@@ -26,14 +26,14 @@ class Like extends PureComponent {
                         return(
                             <ListItem key={item.id}>
                                 <Information>
-                                    <ArticleText>{item.author}</ArticleText>
+                                    <ArticleText>{item.userName}</ArticleText>
                                     <ArticleText>{item.createAt}</ArticleText>
                                     </Information>
                                     <ListTitle>{item.title}</ListTitle>
-                                    <ListBottom>
+                                    {/* <ListBottom>
                                         <BottomItem>{item.like}</BottomItem>
                                         <BottomItem>{item.comments}</BottomItem>
-                                    </ListBottom>
+                                    </ListBottom> */}
                             </ListItem>
                         )
                     })
@@ -43,18 +43,19 @@ class Like extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getLike();
+        this.props.getLike(this.props.currentUser.id);
     }
 }
 
 const mapState = (state) => ({
-    likes : state.getIn(['personnel', 'likes'])
+    likes : state.getIn(['personnel', 'likes']),
+    currentUser : state.getIn(['personnel', 'mainUser'])
 })
 
 const mapDispatch = (dispatch) => {
     return {
-        getLike() {
-            dispatch(personnelActionCreators.getLike())
+        getLike(id) {
+            dispatch(personnelActionCreators.getLike(id))
         }
     }
 }

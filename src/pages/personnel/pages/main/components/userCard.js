@@ -4,8 +4,8 @@ import {
     Portrait,
     TextBox,
     UserName,
-    InfoButton,
-    Desc
+    Desc,
+    Button
 } from '../styled';
 import portraitImg from '../../../../../statics/images/portrait.png';
 import { connect } from 'react-redux';
@@ -23,12 +23,13 @@ class UserCard extends PureComponent {
                 <TextBox>
                     <UserName>{mainUser.userName}</UserName>
                     <Desc>{mainUser.description}</Desc>
+                    <Desc>{mainUser.homePage}</Desc>
                 </TextBox>
                 {
                     isCurrent 
                     ?
-                    <Link to='/information'>
-                        <InfoButton>编辑个人信息</InfoButton>
+                    <Link to="/information">
+                        <Button>编辑个人资料</Button>
                     </Link>
                     :
                     null

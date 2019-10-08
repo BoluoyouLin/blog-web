@@ -111,22 +111,26 @@ export const UserInfoWrapper = styled.div`
     width: 100%;
     padding: 20px 10px;
     background-color: #fff;
-    height: 150px; 
+    height: 150px;
+    text-align: center; 
 `;
 
 export const Portrait = styled.img`
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin: 0 60px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 `;
 
 export const UserName = styled.p`
-    width: 90%;
+    width: 100%;
     line-height: 30px;
     text-align: center;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 18px;
+    font-weight: 500;
+    color: #fdb103;
 `;

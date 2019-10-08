@@ -97,3 +97,11 @@ export const BarItem = styled.div`
         margin-right: 15px;
     }
 `;
+
+export const LeftBar = styled.div`
+
+`;
+
+export const LeftBarItem = styled.div`
+    
+`;

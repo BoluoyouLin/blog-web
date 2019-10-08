@@ -7,7 +7,9 @@ import {
     NavInput,
     Portrait,
     PersonnelBar,
-    BarItem
+    BarItem,
+    LeftBar,
+    LeftBarItem
  } from './style';
 import { searchActionCreators } from '../../pages/search/store';
 import { homeActionCreators } from '../../pages/home/store';
@@ -28,6 +30,9 @@ class Header extends PureComponent {
                 <Link to='/'>
                     <Logo/>
                 </Link>
+                <LeftBar>
+                    <LeftBarItem>首页</LeftBarItem>
+                </LeftBar>
                 <Nav>
                     {
                         currentUser === undefined ?

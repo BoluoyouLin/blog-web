@@ -23,7 +23,7 @@ class Focus extends PureComponent {
                     : 
                     focus.map( item => {
                         return (
-                            <ActivitiesItem key={item.userId}>
+                            <ActivitiesItem key={item.id}>
                                 <ActivitiesImg
                                 src = { item.portrait || normalPortrait}
                                 />
@@ -38,18 +38,19 @@ class Focus extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getFocus();
+        this.props.getFocus(this.props.currentUser.id);
     }
 }
 
 const mapState = (state) => ({
-    focus : state.getIn(['personnel', 'focus']) 
+    focus : state.getIn(['personnel', 'focus']),
+    currentUser : state.getIn(['personnel', 'mainUser'])
 })
 
 const mapDispatch = (dispatch) => {
     return {
-        getFocus() {
-            dispatch(personnelActionCreators.getFocus())
+        getFocus(id) {
+            dispatch(personnelActionCreators.getFocus(id))
         }
     }
 }

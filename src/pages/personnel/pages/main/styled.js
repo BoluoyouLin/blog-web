@@ -3,60 +3,60 @@ import styled from 'styled-components';
 // userCard.js
 export const CardWrapper = styled.div`
     width: 30%;
-    height: 160px;
+    height: 255px;
     background: #fff;
     display: flex;
     order: 1;
+    flex-direction: column;
+    text-align: center;
 `;
 
 export const Portrait = styled.img`
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    padding: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 `;
 
 export const TextBox = styled.div`
-    height: 100px;
-    width: 40%;
-    padding: 30px 0;
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
 `;
 
 export const UserName = styled.div`
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
     width: 100%;
     line-height: 30px;
-    padding: 10px;
+    margin-bottom: 15px;
 `;
 
 export const Desc = styled.div`
     font-size: 16px;
     color: #e3e3e3;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
-    padding: 10px;
+    margin-bottom: 10px;
 `;
 
-export const InfoButton = styled.div`
-    width: 120px;
-    height: 35px;
-    border: 2px solid #fbd103;
-    box-sizing: border-box;
-    text-align: center;
-    background: #fff;
-    color: #fbd103;
-    border-radius: 5px;
-    line-height: 35px;
+export const Button = styled.div`
+    height: 30px;
+    padding: 4px 8px;
     font-size: 16px;
-    margin: 65px 0 0 40px;
+    background: #fdb103;
+    line-height: 30px;
+    color: #fff;
     cursor: pointer;
 `;
+
 
 // content.js
 

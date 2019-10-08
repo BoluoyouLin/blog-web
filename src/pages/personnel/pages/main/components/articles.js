@@ -6,7 +6,6 @@ import {
     ArticleTitle,
     ArticleText,
     ArticleAuthorImage,
-    Article,
     InfoWrapper
 } from '../styled';
 import portraitImg from '../../../../../statics/images/portrait.png';
@@ -24,15 +23,15 @@ class Articles extends PureComponent {
                     :
                     articles.map(item => {
                         return (
-                            <ArticleItem key={item.articleId}>
+                            <ArticleItem key={item.id}>
                                 <InfoWrapper>
                                     <ArticleAuthorImage 
                                     src = {item.authorPortrait || portraitImg}
                                     />
-                                    <ArticleText>{item.author}</ArticleText>
+                                    <ArticleText>{item.userName}</ArticleText>
+                                    <ArticleText>{item.createAt}</ArticleText>
                                 </InfoWrapper>
                                 <ArticleTitle>{item.title}</ArticleTitle>
-                                <Article>{item.content}</Article>
                             </ArticleItem>
                         )
                     })
@@ -42,18 +41,19 @@ class Articles extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getArticles();
+        this.props.getArticles(this.props.currentUser.id);
     }
 }
 
 const mapState = (state) => ({
-    articles : state.getIn(['personnel', 'userArticles'])
+    articles : state.getIn(['personnel', 'userArticles']),
+    currentUser : state.getIn(['personnel', 'mainUser'])
 })
 
 const mapDispatch = (dispatch) => {
     return {
-        getArticles() {
-            dispatch(personnelActionCreators.getArticle())
+        getArticles(id) {
+            dispatch(personnelActionCreators.getArticle(id))
         }
     }
 }
