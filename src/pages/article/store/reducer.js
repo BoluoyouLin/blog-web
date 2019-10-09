@@ -3,7 +3,8 @@ import { articleActionTypes } from './index';
 
 const defaultState = fromJS({
     article : '',
-    articleTitle: ''
+    articleTitle: '',
+    detailsArticle: {},
 })
 
 export default (state = defaultState, action) => {
@@ -18,6 +19,8 @@ export default (state = defaultState, action) => {
                 'article' : '',
                 'articleTitle' : ''
             });
+        case articleActionTypes.CHANGE_DETAILS_ARTICLE :
+            return state.set('detailsArticle', action.data)
         default:
             return state;
     }

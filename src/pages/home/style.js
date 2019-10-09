@@ -44,6 +44,9 @@ export const ArticleText = styled.span`
     font-size: 15px;
     color: #878787;
     margin: 0 4px;
+    &.username {
+        cursor: pointer;
+    }
 `;
 
 export const Information = styled.div`

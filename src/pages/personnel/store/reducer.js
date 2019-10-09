@@ -5,15 +5,18 @@ const defaultState = fromJS({
     focus : [],
     likes : [],
     userArticles : [],
-    mainUser : {
+    mainUser : {},
+    homePageUser : {
         id : undefined,
-        userName : '',
-        description : '',
-        portrait : '',
-        homePage : '',
-        createAt : ''
+        userName : "",
+        password : "",
+        portrait : "",
+        homePage : "",
+        createAt : "",
+        description : ""
     },
-    isCurrent : false
+    isCurrent : false,
+    isFocus : false
 })
 
 export default (state = defaultState, action) => {
@@ -35,6 +38,8 @@ export default (state = defaultState, action) => {
                 'mainUser' : action.data.mainUser,
                 'isCurrent' : action.data.isCurrent
             });
+        case personnelActionTypes.CHANGE_HOME_PAGE_USER :
+            return state.set('homePageUser', action.data);
         default :
             return state;
     }

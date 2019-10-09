@@ -10,6 +10,8 @@ import Search  from './pages/search'
 import { GlobalStyleByIconfont } from './statics/iconfont/iconfont';
 import Personnel from './pages/personnel';
 import Information from './pages/personnel/pages/information';
+import ArticleDetails from './pages/article/pages/articleDetails';
+import UserHomePage from './pages/personnel/pages/userHomePage';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/search" exact component={Search}></Route>
         <Route path="/personnel" exact component={Personnel}></Route>
         <Route path="/information" exact component={Information}></Route>
+        <Route path="/articleDetails" exact component={ArticleDetails}></Route>
+        <Route path="/userHomePage" exact component={UserHomePage}></Route>
       </BrowserRouter>
     </Provider>
   );

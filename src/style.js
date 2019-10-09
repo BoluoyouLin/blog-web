@@ -51,4 +51,7 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration:none;
   }
+  .bf-container {
+    border: 1px solid #ddd;
+}
 `

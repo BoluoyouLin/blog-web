@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
-import Editor from 'for-editor';
+// 引入编辑器组件
+import BraftEditor from 'braft-editor';
+// 引入编辑器样式
+import 'braft-editor/dist/index.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { articleActionCreators } from '../store';
@@ -23,7 +26,7 @@ class NewArticle extends PureComponent {
         super()
         this.state = {
             tempTitle : undefined,
-            tempArticle : undefined,
+            tempArticle : BraftEditor.createEditorState(null),
             error : false,
             message : ''
         }
@@ -49,8 +52,9 @@ class NewArticle extends PureComponent {
             })
         }
         if( this.props.article !== null ) {
+            let htmlString = BraftEditor.createEditorState(this.props.article)
             this.setState( {
-                tempArticle : this.props.article
+                tempArticle : htmlString
             })
         }
     }
@@ -66,11 +70,12 @@ class NewArticle extends PureComponent {
             this.showError("文章发布失败",function(){})
         }
         else {
+            let htmlString = article.toHTML();
             axios.post('http://localhost:8080/article/addArticle',
             {
-                authorid : userId,
+                authorId : userId,
                 title : title,
-                contentMd : article
+                contentHtml : htmlString
             }
             ).then( res => {
                 if(res.data.status) {
@@ -114,14 +119,13 @@ class NewArticle extends PureComponent {
                     <Input 
                     placeholder='请输入文章标题' 
                     value = { tempTitle || '' } 
-                    onChange = {this.handleChangeTitle.bind(this)}
+                    onChange = { this.handleChangeTitle.bind(this) }
                     />
                     <Label>正文</Label>
-                    <Editor 
-                    placeholder='尽情释放你的才华～' 
-                    value = { tempArticle } 
-                    onChange = {this.handleChangeArticle.bind(this)}
-                    onSave = {() => saveArticle(tempTitle, tempArticle)}
+                    <BraftEditor 
+                    value={ tempArticle }
+                    onChange={ this.handleChangeArticle.bind(this) }
+                    onSave={ () => saveArticle(tempTitle, tempArticle) }
                     />
                 </Body>
                 <ArticleBottom>
@@ -151,7 +155,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => {
     return {
         saveArticle(title, article) {
-            dispatch(articleActionCreators.saveTemplateArticle(title, article))
+            dispatch(articleActionCreators.saveTemplateArticle(title, article.toHTML()))
         },
         clearTemp() {
             dispatch(articleActionCreators.clearTemp())

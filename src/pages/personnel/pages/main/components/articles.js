@@ -10,6 +10,7 @@ import {
 } from '../styled';
 import portraitImg from '../../../../../statics/images/portrait.png';
 import { personnelActionCreators } from '../../../store';
+import { withRouter } from 'react-router-dom';
 
 class Articles extends PureComponent {
     render() {
@@ -25,13 +26,19 @@ class Articles extends PureComponent {
                         return (
                             <ArticleItem key={item.id}>
                                 <InfoWrapper>
-                                    <ArticleAuthorImage 
+                                    <ArticleAuthorImage
+                                    onClick = {() => this.goPersonnel(item.authorId)} 
                                     src = {item.authorPortrait || portraitImg}
                                     />
-                                    <ArticleText>{item.userName}</ArticleText>
-                                    <ArticleText>{item.createAt}</ArticleText>
+                                    <ArticleText
+                                    className = 'username'
+                                    onClick = {() => this.goPersonnel(item.authorId)}
+                                    >{item.userName}</ArticleText>
+                                    <ArticleText>发布于 {item.createAt}</ArticleText>
                                 </InfoWrapper>
-                                <ArticleTitle>{item.title}</ArticleTitle>
+                                <ArticleTitle
+                                onClick = {() => this.goArticleDetails(item.id)}
+                                >{item.title}</ArticleTitle>
                             </ArticleItem>
                         )
                     })
@@ -42,6 +49,18 @@ class Articles extends PureComponent {
 
     componentDidMount() {
         this.props.getArticles(this.props.currentUser.id);
+    }
+
+    goPersonnel(userId) {
+        this.props.history.push('/personnel', {
+            userId
+        })
+    }
+
+    goArticleDetails(articleId) {
+        this.props.history.push('/articleDetails', {
+            articleId
+        })
     }
 }
 
@@ -58,4 +77,4 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Articles);
+export default withRouter(connect(mapState, mapDispatch)(Articles));

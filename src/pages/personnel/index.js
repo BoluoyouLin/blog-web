@@ -19,12 +19,28 @@ class Personnel extends PureComponent {
         )
     }
 
+    componentDidMount() {
+        if(!this.props.currentUser) {
+            this.props.history.push('/');
+        }
+        else {
+            let userId = this.props.location.state.userId;
+            let isCurrent = false
+            if(this.props.currentUser.id === userId) {
+                isCurrent = true
+            }
+            this.props.getMainUser(userId, isCurrent);
+        }
+    }
+
     componentWillUnmount() {
         this.props.changeMainUser();
     }
 }
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+    currentUser : state.getIn(['home', 'currentUser'])
+})
 
 const mapDispatch = (dispatch) => ({
     changeMainUser() {
@@ -39,6 +55,9 @@ const mapDispatch = (dispatch) => ({
             },
             isCurrent : false
         }))
+    },
+    getMainUser(userId, isCurrent) {
+        dispatch(personnelActionCreators.getMainUser(userId, isCurrent))
     }
 })
 

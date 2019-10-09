@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { homeActionCreators } from '../store';
 import Nothing from '../../../common/nothing';
+import { withRouter } from 'react-router-dom'
 
 class List extends PureComponent {
 
@@ -35,10 +36,15 @@ class List extends PureComponent {
                         return (
                             <ListItem key={item.id}>
                                 <Information>
-                                    <ArticleText>{item.userName}</ArticleText>
+                                    <ArticleText
+                                    className = 'username'
+                                    onClick = {() => this.goPersonnel(item.authorId)}
+                                    >{item.userName}</ArticleText>
                                     <ArticleText>发布于 {item.createAt}</ArticleText>
                                     </Information>
-                                    <ListTitle>{item.title}</ListTitle>
+                                    <ListTitle
+                                    onClick = { () => this.goArticleDetails(item.id)}
+                                    >{item.title}</ListTitle>
                                     <ListBottom>
                                         <BottomItem>{item.like}</BottomItem>
                                         <BottomItem>{item.comments}</BottomItem>
@@ -53,6 +59,18 @@ class List extends PureComponent {
 
     componentDidMount() {
         this.props.loadData(this.state.page, this.state.pageSize);
+    }
+
+    goArticleDetails(articleId) {
+        this.props.history.push("/articleDetails",{
+            articleId : articleId
+        })
+    }
+
+    goPersonnel(userId) {
+        this.props.history.push('/userHomePage' ,{
+            userId
+        })
     }
 }
 
@@ -70,4 +88,4 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(List);
+export default withRouter(connect(mapState, mapDispatch)(List));

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import logoPath from '../../statics/logo/logo.png';
+import backgroundImg from '../../statics/images/background.jpg';
 
 export const NewArticleWrapper = styled.div`
     width: 100%;
@@ -84,4 +85,47 @@ export const ArticleBottom = styled.div`
     height: 50px;
     display: flex;
     justify-content: center;
+`;
+
+// articleDetails.js
+export const DetailsWrapper = styled.div`
+    width: 100%;
+`;
+
+export const DetailsHeader = styled.div`
+    width: 100%;
+    height: 340px;
+    background: url(${backgroundImg});
+    text-align: center;
+    padding-top: 160px;
+    box-sizing: border-box;
+`;
+
+export const DetailsTitle = styled.div`
+    color: #fff;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 30px;
+`;
+
+export const DetailsInfo = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+export const InfoItem = styled.p`
+    margin: 0 15px;
+    color: #fff;
+    font-size: 14px;
+`;
+
+export const DetailsBody = styled.div`
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: #fff;
+    padding: 50px 30px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
 `;

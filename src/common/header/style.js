@@ -69,7 +69,7 @@ export const PersonnelBar = styled.div`
     height: 200px;
     background: #fff;
     position: absolute;
-    right: 0;
+    right: 150px;
     top: 70px;
     border: 1px solid #eee;
     border-radius: 4px; 
@@ -108,4 +108,18 @@ export const LeftBarItem = styled.div`
 `;
 
 export const ArticleButton = styled.div`
+    height: 40px;
+    float: right;
+    width: 91px;
+    background: #fdb103;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    margin: 27px 5px 12px;
+    cursor: pointer;
+    .zoom {
+        margin-right: 6px;
+    }
 `;

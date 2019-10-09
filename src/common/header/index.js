@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import portrait from '../../statics/images/portrait.png';
 import Error from '../error';
-import { personnelActionCreators } from '../../pages/personnel/store';
 
 class Header extends PureComponent {
 
@@ -51,28 +50,18 @@ class Header extends PureComponent {
                     <PersonnelBar 
                     className={showBar ? 'show' : 'hidden'}
                     >
-                        {
-                            showBar 
-                            ?
-                            <BarItem 
-                            onClick = {() => handleClickNoLogin()}
-                            >
+                        <Link to='/newArticle'>
+                            <BarItem>
                                 <span className="iconfont zoom">&#xe652;</span>
                                 写文章
                             </BarItem>
-                            :
-                            <ArticleButton>
-                                写文章
-                            </ArticleButton>
-                        }
-                        <Link to='/personnel'>
+                        </Link>
                             <BarItem
                             onClick = { () => this.handleGetMainUser(currentUser.id)}
                             >
                                 <span className="iconfont zoom">&#xe679;</span>
                                 我的主页
                             </BarItem>
-                        </Link>
                         <Link to='/information'>
                             <BarItem>
                                 <span className="iconfont zoom">&#xe771;</span>
@@ -84,9 +73,20 @@ class Header extends PureComponent {
                             登出
                         </BarItem>
                     </PersonnelBar>
-                    <Link to='/newArticle'>
-                        <NavItem>写文章</NavItem>
-                    </Link>
+                    {
+                        currentUser === undefined
+                        ?
+                        <NavItem
+                        onClick = {() => handleClickNoLogin()}
+                        >写文章</NavItem>
+                        :
+                        <Link to='/newArticle'>
+                            <ArticleButton>
+                                <span className="iconfont zoom">&#xe652;</span>
+                                写文章
+                            </ArticleButton>
+                        </Link>
+                    }
                     <NavInput onKeyPress = {this.handleEnterKey.bind(this)}/>
                 </Nav>
                 <Error 
@@ -105,7 +105,9 @@ class Header extends PureComponent {
     }
 
     handleGetMainUser(userId) {
-        this.props.goPersonnelMainPage(userId)
+        this.props.history.push('/personnel',{
+            userId
+        });
     }
 
     componentDidMount() {
@@ -146,9 +148,6 @@ const mapDispatch = (dispatch) => {
                 }))
             }, 2000)
         },
-        goPersonnelMainPage(userId) {
-            dispatch(personnelActionCreators.getMainUser(userId, true))
-        },
         handleClickNoLogin() {
             dispatch(homeActionCreators.changeHeaderTips({
                 status : true,
@@ -159,7 +158,7 @@ const mapDispatch = (dispatch) => {
                     status : false,
                     message : ''
                 }))
-            }, 2000)
+            }, 3000)
         }
     }
 }

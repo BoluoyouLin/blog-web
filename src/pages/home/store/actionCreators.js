@@ -56,6 +56,10 @@ export const login = (userName, password) => {
                     message : res.data.message,
                     status : res.data.status
                 }
+                dispatch(changeHeaderTips({
+                    status : true,
+                    message : res.data.message
+                }))
             }
             dispatch(loginAfter(data))
         })

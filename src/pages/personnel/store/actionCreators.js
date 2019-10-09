@@ -16,6 +16,11 @@ const changeLike = (data) => ({
     data
 })
 
+const changeHomePageUser= (data) => ({
+    type : personnelActionTypes.CHANGE_HOME_PAGE_USER,
+    data
+})
+
 export const changeMainUser = (data) => ({
     type : personnelActionTypes.CHANGE_MAIN_USER,
     data
@@ -40,7 +45,6 @@ export const getArticle = (userId) => {
             id : userId
         }
         ).then( res => {
-            console.log(res)
             dispatch(changeArticle(res.data.data))
         })
     }
@@ -67,6 +71,16 @@ export const getMainUser = (userId, isCurrent) => {
                 mainUser : res.data.data,
                 isCurrent
             }))
+        })
+    }
+}
+
+export const getHomePageUser = (userId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/user/getUserById',
+        {id : userId}
+        ).then(res => {
+            dispatch(changeHomePageUser(res.data.data))
         })
     }
 }

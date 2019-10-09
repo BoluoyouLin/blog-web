@@ -152,18 +152,23 @@ export const ArticleTitle = styled.p`
     font-weight: 500;
     width: 100%;
     margin: 10px 0;
+    cursor: pointer;
 `;
 
 export const ArticleText = styled.span`
     font-size: 15px;
     color: #878787;
     margin: 0 4px;
+    &.username {
+        cursor: pointer;
+    }
 `;
 
 export const ArticleAuthorImage = styled.img`
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    cursor: pointer;
 `;
 
 export const Article = styled.p`
