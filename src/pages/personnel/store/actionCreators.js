@@ -22,7 +22,6 @@ export const changeMainUser = (data) => ({
 })
 
 export const getFocus = (userId) => {
-    console.log(userId)
     return (dispatch) => {
         axios.post('http://localhost:8080/user/getUserFocus',
         {
@@ -35,20 +34,19 @@ export const getFocus = (userId) => {
 }
 
 export const getArticle = (userId) => {
-    console.log(userId)
     return (dispatch) => {
         axios.post('http://localhost:8080/article/getArticleByUser',
         {
             id : userId
         }
         ).then( res => {
+            console.log(res)
             dispatch(changeArticle(res.data.data))
         })
     }
 }
 
 export const getLike = (userId) => {
-    console.log(userId)
     return (dispatch) => {
         axios.post('http://localhost:8080/like/getLikeArticleByUser',
         {

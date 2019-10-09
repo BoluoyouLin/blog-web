@@ -9,18 +9,34 @@ import {
     ArticleText
 } from '../style';
 import { connect } from 'react-redux';
+import { homeActionCreators } from '../store';
+import Nothing from '../../../common/nothing';
 
 class List extends PureComponent {
+
+    constructor() {
+        super()
+        this.state = {
+            page : 0,
+            pageSize : 20
+        }
+    }
     render() {
+
+        const { articles } = this.props;
         return (
             <ListWrapper>
                 {
-                    this.props.articles.map( item => {
+                    articles.length === 0 
+                    ?
+                    <Nothing />
+                    :
+                    articles.map( item => {
                         return (
                             <ListItem key={item.id}>
                                 <Information>
-                                    <ArticleText>{item.author}</ArticleText>
-                                    <ArticleText>{item.createAt}</ArticleText>
+                                    <ArticleText>{item.userName}</ArticleText>
+                                    <ArticleText>发布于 {item.createAt}</ArticleText>
                                     </Information>
                                     <ListTitle>{item.title}</ListTitle>
                                     <ListBottom>
@@ -34,6 +50,10 @@ class List extends PureComponent {
             </ListWrapper>
         )
     }
+
+    componentDidMount() {
+        this.props.loadData(this.state.page, this.state.pageSize);
+    }
 }
 
 const mapState = (state) => {
@@ -42,4 +62,12 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(List);
+const mapDispatch = (dispatch) => {
+    return {
+        loadData(page, pageSize) {
+            dispatch(homeActionCreators.getArticles(page, pageSize))
+        }
+    }
+}
+
+export default connect(mapState, mapDispatch)(List);

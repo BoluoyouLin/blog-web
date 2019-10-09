@@ -2,8 +2,8 @@ import { fromJS } from 'immutable';
 import { articleActionTypes } from './index';
 
 const defaultState = fromJS({
-    article : null,
-    articleTitle: null
+    article : '',
+    articleTitle: ''
 })
 
 export default (state = defaultState, action) => {
@@ -15,8 +15,8 @@ export default (state = defaultState, action) => {
             });
         case articleActionTypes.CLEAR_TEMP :
             return state.merge({
-                'article' : null,
-                'articleTitle' : null
+                'article' : '',
+                'articleTitle' : ''
             });
         default:
             return state;

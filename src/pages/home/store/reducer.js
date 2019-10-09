@@ -14,7 +14,7 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
     switch(action.type) {
         case homeActionTypes.LOAD_HOME_DATA :
-            return state.set('articles', action.data.articleList);
+            return state.set('articles', action.data);
         case homeActionTypes.LOGIN :
             return state.merge({
                 'currentUser' : action.data.currentUser,

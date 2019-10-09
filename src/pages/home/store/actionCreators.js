@@ -26,9 +26,14 @@ const changeHomePage = (data) => ({
     data
 })
 
-export const getArticles = () => {
+export const getArticles = (page, pageSize) => {
     return (dispatch) => {
-        axios.get('/api/loadData.json').then(res => {
+        axios.post('http://localhost:8080/article/getArticleListInHomePage',
+        {
+            page, 
+            pageSize
+        }
+        ).then(res => {
             dispatch(loadHomeData(res.data.data))
         })
     }

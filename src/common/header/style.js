@@ -14,30 +14,26 @@ export const Logo = styled.div`
     width: 160px;
     height: 60px;
     display: block;
-    position: absolute;
-    top: 10px;
-    left: 18%;
+    float: left;
+    margin : 10px 5px;
     background: url(${logoPath});
     background-size: contain;
     cursor: pointer;
 `;
 
 export const Nav = styled.div`
-    height: 60px;
+    height: 80px;
     font-size: 18px;
-    position: absolute;
-    top: 10px;
+    float: right;
     right: 18%;
 `;
 
 export const NavItem = styled.div`
-    margin-left: 10px;
-    height: 100%;
-    color: #fbd103;
+    color: #fdb103;
     float: right;
-    line-height: 60px;
     text-align: center;
     cursor: pointer;
+    padding: 39px 10px 22px; 
 `;
 
 export const NavInput = styled.input.attrs({
@@ -49,7 +45,7 @@ export const NavInput = styled.input.attrs({
     border: 1px solid #eee;
     border-radius: 4px;
     color: #656363;
-    margin: 10px 0;
+    margin: 25px 10px 10px;
     font-size: 16px;
     text-indent: 10px;
     &:focus {
@@ -64,7 +60,7 @@ export const Portrait = styled.img`
     height: 40px;
     border-radius: 50%;
     float: right;
-    margin: 10px;
+    margin: 28px 10px 11px;
     cursor: pointer;
 `;
 
@@ -99,9 +95,17 @@ export const BarItem = styled.div`
 `;
 
 export const LeftBar = styled.div`
-
+    float: left;
+    height: 80px;
 `;
 
 export const LeftBarItem = styled.div`
-    
+    font-weight: 400;
+    color: #fdb103;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 39px 10px 22px;
+`;
+
+export const ArticleButton = styled.div`
 `;

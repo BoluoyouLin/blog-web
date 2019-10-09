@@ -19,7 +19,7 @@ class Like extends PureComponent {
         return (
             <Fragment>
                 {
-                    !likes ?
+                    likes.length === 0 ?
                     <Nothing />
                     :
                     likes.map( item => {

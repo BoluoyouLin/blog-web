@@ -32,10 +32,6 @@ class Home extends PureComponent {
         )
     }
 
-    componentDidMount() {
-        this.props.initData()
-    }
-
     componentDidUpdate() {
         this.props.changeLoginStatus()
     }
@@ -51,9 +47,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        initData() {
-            dispatch(homeActionCreators.getArticles())
-        },
         changeLoginStatus() {
             setTimeout(() => {
                 dispatch(homeActionCreators.changeLoginStatus())

@@ -17,7 +17,7 @@ class Focus extends PureComponent {
         return (
             <Fragment>
                 { 
-                    !focus 
+                    focus.length === 0 
                     ? 
                     <Nothing /> 
                     : 

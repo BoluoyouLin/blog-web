@@ -14,6 +14,8 @@ import {
     Button,
     ArticleBottom
 } from '../style';
+import Error from '../../../common/error';
+import axios from 'axios';
 
 class NewArticle extends PureComponent {
 
@@ -21,7 +23,9 @@ class NewArticle extends PureComponent {
         super()
         this.state = {
             tempTitle : undefined,
-            tempArticle : undefined
+            tempArticle : undefined,
+            error : false,
+            message : ''
         }
     }
 
@@ -51,9 +55,51 @@ class NewArticle extends PureComponent {
         }
     }
 
+    addArticle(title, article, userId) {
+        if(!title) {
+            this.showError("标题不能为空",function(){})
+        }
+        else if(!article) {
+            this.showError("内容不能为空",function(){})
+        }
+        else if(!userId) {
+            this.showError("文章发布失败",function(){})
+        }
+        else {
+            axios.post('http://localhost:8080/article/addArticle',
+            {
+                authorid : userId,
+                title : title,
+                contentMd : article
+            }
+            ).then( res => {
+                if(res.data.status) {
+                    this.props.clearTemp()
+                }
+                this.showError(res.data.message + ",正在返回首页",() => {
+                    this.props.history.push("/")
+                })
+            })
+        }
+    }
+
+    showError(message, callback) {
+        this.setState({
+            error: true,
+            message: message
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    error: false,
+                    message: ''
+                }, () => callback())
+            }, 2000)
+        })
+    }
+
     render() {
-        const { saveArticle, clearTemp, addArticle } = this.props;
-        const { tempTitle, tempArticle} = this.state
+        const { saveArticle, clearTemp, currentUser } = this.props;
+        const { tempTitle, tempArticle, error, message} = this.state
 
         return (
             <NewArticleWrapper>
@@ -79,11 +125,17 @@ class NewArticle extends PureComponent {
                     />
                 </Body>
                 <ArticleBottom>
-                    <Button onClick = { () => addArticle(tempTitle, tempArticle, 1) }>发布文章</Button>
+                    <Button 
+                    onClick = { () => this.addArticle(tempTitle, tempArticle, currentUser.id) }
+                    >发布文章</Button>
                     <Link to='/'>
                         <Button onClick = { () => clearTemp() }>返回首页</Button>
                     </Link>
                 </ArticleBottom>
+                <Error 
+                isShow = { error }
+                message = { message }
+                />
             </NewArticleWrapper>
         )
     }
@@ -92,19 +144,14 @@ class NewArticle extends PureComponent {
 
 const mapState = (state) => ({
     article: state.getIn(['article', 'article']),
-    title: state.getIn(['article', 'articleTitle'])
+    title: state.getIn(['article', 'articleTitle']),
+    currentUser: state.getIn(['home', 'currentUser'])
 })
 
 const mapDispatch = (dispatch) => {
     return {
         saveArticle(title, article) {
             dispatch(articleActionCreators.saveTemplateArticle(title, article))
-        },
-        addArticle(title, article, userId) {
-            console.log(title, article, userId)
-            console.log(Object.prototype.toString.call(article))
-            // dispatch(articleActionCreators.addArticle(title, article, userId))
-            dispatch(articleActionCreators.clearTemp())
         },
         clearTemp() {
             dispatch(articleActionCreators.clearTemp())

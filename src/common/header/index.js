@@ -9,7 +9,8 @@ import {
     PersonnelBar,
     BarItem,
     LeftBar,
-    LeftBarItem
+    LeftBarItem,
+    ArticleButton
  } from './style';
 import { searchActionCreators } from '../../pages/search/store';
 import { homeActionCreators } from '../../pages/home/store';
@@ -23,7 +24,7 @@ class Header extends PureComponent {
 
     render() {
 
-        const { currentUser, showBar, handleShowBar, isShow, message} = this.props;
+        const { currentUser, showBar, handleShowBar, isShow, message, handleClickNoLogin} = this.props;
 
         return(
             <HeaderWrapper>
@@ -31,7 +32,9 @@ class Header extends PureComponent {
                     <Logo/>
                 </Link>
                 <LeftBar>
-                    <LeftBarItem>首页</LeftBarItem>
+                    <Link to='/'>
+                        <LeftBarItem>首页</LeftBarItem>
+                    </Link>
                 </LeftBar>
                 <Nav>
                     {
@@ -47,14 +50,21 @@ class Header extends PureComponent {
                     }
                     <PersonnelBar 
                     className={showBar ? 'show' : 'hidden'}
-                    // onClick = {this.handleBarClick.bind(this)}
                     >
-                        <Link to='/newArticle'>
-                            <BarItem>
+                        {
+                            showBar 
+                            ?
+                            <BarItem 
+                            onClick = {() => handleClickNoLogin()}
+                            >
                                 <span className="iconfont zoom">&#xe652;</span>
                                 写文章
                             </BarItem>
-                        </Link>
+                            :
+                            <ArticleButton>
+                                写文章
+                            </ArticleButton>
+                        }
                         <Link to='/personnel'>
                             <BarItem
                             onClick = { () => this.handleGetMainUser(currentUser.id)}
@@ -138,6 +148,18 @@ const mapDispatch = (dispatch) => {
         },
         goPersonnelMainPage(userId) {
             dispatch(personnelActionCreators.getMainUser(userId, true))
+        },
+        handleClickNoLogin() {
+            dispatch(homeActionCreators.changeHeaderTips({
+                status : true,
+                message : '登录后才可以写文章哟'
+            }))
+            setTimeout(() => {
+                dispatch(homeActionCreators.changeHeaderTips({
+                    status : false,
+                    message : ''
+                }))
+            }, 2000)
         }
     }
 }

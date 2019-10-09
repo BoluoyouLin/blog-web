@@ -2,9 +2,9 @@ import { fromJS } from 'immutable';
 import { personnelActionTypes } from './index';
 
 const defaultState = fromJS({
-    focus : undefined,
-    likes : undefined,
-    userArticles : undefined,
+    focus : [],
+    likes : [],
+    userArticles : [],
     mainUser : {
         id : undefined,
         userName : '',
@@ -20,15 +20,15 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case personnelActionTypes.CHANGE_FOCUS :
             return state.merge({
-                'focus' : action.data.focus
+                'focus' : action.data
             });
         case personnelActionTypes.CHANGE_ARTICLES :
             return state.merge({
-                'userArticles' : action.data.articles
+                'userArticles' : action.data
             });
         case personnelActionTypes.CHANGE_LIKE :
             return state.merge({
-                'likes' : action.data.articleList
+                'likes' : action.data
             });
         case personnelActionTypes.CHANGE_MAIN_USER :
             return state.merge({

@@ -18,7 +18,7 @@ class Articles extends PureComponent {
         return (
             <Fragment>
                 {
-                    !articles ?
+                    articles.length === 0 ?
                     <Nothing />
                     :
                     articles.map(item => {

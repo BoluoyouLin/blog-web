@@ -4,10 +4,6 @@ const changeArticle = (data) => ({
     data
 })
 
-export const addArticle = (title, article, userId) => {
-    console.log(title, article, userId)
-}
-
 export const saveTemplateArticle = (title, article) => {
     return (dispatch) => {
         let data = {

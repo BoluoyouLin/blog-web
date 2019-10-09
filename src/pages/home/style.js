@@ -5,13 +5,15 @@ export const HomeWrapper = styled.div`
 `;
 
 export const BodyWrapper = styled.div`
-    margin: 0 18%;
+    margin: 0 auto;
+    width: 960px;
     display: flex;
     margin-top: 25px;
 `;
 
 export const LeftWrapper = styled.div`
-    width: 70%;
+    width: 65%;
+    margin-left: 5%;
     order: 0;
     margin: 0 20px;
     background: white;
@@ -66,7 +68,7 @@ export const BottomItem = styled.div`
 
 // login.js
 export const LoginWrapper = styled.div`
-    width: 100%;
+    width: 30%;
     padding: 20px 10px;
     background-color: #fff;
     height: 180px;
@@ -108,7 +110,7 @@ export const LoginBottom = styled.div`
 // userInfo.js
 
 export const UserInfoWrapper = styled.div`
-    width: 100%;
+    width: 30%;
     padding: 20px 10px;
     background-color: #fff;
     height: 150px;
