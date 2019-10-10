@@ -21,6 +21,11 @@ const changeHomePageUser= (data) => ({
     data
 })
 
+const changeIsFocus = (data) => ({
+    type : personnelActionTypes.CHANGE_IS_FOCUS,
+    data
+})
+
 export const changeMainUser = (data) => ({
     type : personnelActionTypes.CHANGE_MAIN_USER,
     data
@@ -81,6 +86,61 @@ export const getHomePageUser = (userId) => {
         {id : userId}
         ).then(res => {
             dispatch(changeHomePageUser(res.data.data))
+        })
+    }
+}
+
+export const focusUser = (userId, focusId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/user/focusUser',
+        {
+            userId,
+            focusId
+        })
+        .then(res => {
+            if(res.data.status) {
+                dispatch(changeIsFocus(true))
+            }
+        })
+    }
+}
+
+export const unFocusUser = (userId, focusId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/user/unFocusUser',
+        {
+            userId,
+            focusId
+        })
+        .then(res => {
+            if(res.data.status) {
+                dispatch(changeIsFocus(false))
+                dispatch(getFocus(userId))
+            }
+        })
+    }
+}
+
+export const likeArticle = (userId, articleId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/like/likeArticle', {
+                userId,
+                articleId
+            }).then( res => {
+                dispatch(getLike(userId))
+                dispatch(getArticle(userId))
+        })
+    }
+}
+
+export const unLikeArticle = (userId, articleId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/like/unLikeArticle', {
+                userId,
+                articleId
+            }).then( res => {
+                dispatch(getLike(userId))
+                dispatch(getArticle(userId))
         })
     }
 }

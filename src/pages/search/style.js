@@ -27,6 +27,8 @@ export const ListTitle = styled.p`
 export const Information = styled.div`
     font-size: 14px;
     color: #9e9b9b;
+    display: flex;
+    align-items: center;
 `;
 
 export const ListBottom = styled.div`
@@ -41,5 +43,23 @@ export const BottomItem = styled.div`
     line-height: 20px;
     border: 1px solid #ecdba6;
     margin-left: 2px;
+    cursor: pointer;
+`;
+
+export const Text = styled.p`
+    font-weight: 300px;
+    color: #9e9b9b;
+    margin-right: 5px;
+    &.userName {
+        color: #333;
+        cursor: pointer;
+    }
+`;
+
+export const Portrait = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
     cursor: pointer;
 `;

@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { homeActionCreators } from '../store';
 import Nothing from '../../../common/nothing';
 import { withRouter } from 'react-router-dom'
+import axios from 'axios';
 
 class List extends PureComponent {
 
@@ -19,7 +20,8 @@ class List extends PureComponent {
         super()
         this.state = {
             page : 0,
-            pageSize : 20
+            pageSize : 20,
+            normalUserId : 0
         }
     }
     render() {
@@ -40,14 +42,37 @@ class List extends PureComponent {
                                     className = 'username'
                                     onClick = {() => this.goPersonnel(item.authorId)}
                                     >{item.userName}</ArticleText>
-                                    <ArticleText>发布于 {item.createAt}</ArticleText>
+                                    <ArticleText
+                                    className = "date"
+                                    >发布于 {item.createAt}</ArticleText>
                                     </Information>
                                     <ListTitle
                                     onClick = { () => this.goArticleDetails(item.id)}
                                     >{item.title}</ListTitle>
                                     <ListBottom>
-                                        <BottomItem>{item.like}</BottomItem>
-                                        <BottomItem>{item.comments}</BottomItem>
+                                            {
+                                                item.userLike 
+                                                ?
+                                                <BottomItem
+                                                onClick = {() => this.unLikeArticle(item.id)}
+                                                >
+                                                    <span
+                                                    className="iconfont zoom">&#xe60c;</span>
+                                                    {item.likesCount}
+                                                </BottomItem>
+                                                :
+                                                <BottomItem
+                                                onClick = {() => this.likeArticle(item.id)}
+                                                >
+                                                    <span 
+                                                    className="iconfont zoom">&#xe616;</span>
+                                                    {item.likesCount}
+                                                </BottomItem>
+                                            }
+                                        <BottomItem>
+                                            <span className="iconfont zoom">&#xe600;</span>
+                                            {item.commentCount}
+                                        </BottomItem>
                                     </ListBottom>
                             </ListItem>
                         )
@@ -58,7 +83,11 @@ class List extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.loadData(this.state.page, this.state.pageSize);
+        let userId = this.state.normalUserId
+        if(this.props.currentUser) {
+            userId = this.props.currentUser.id
+        }
+        this.props.loadData(this.state.page, this.state.pageSize, userId);
     }
 
     goArticleDetails(articleId) {
@@ -72,18 +101,61 @@ class List extends PureComponent {
             userId
         })
     }
+
+    likeArticle(articleId) {
+        if(this.props.currentUser) {
+            axios.post('http://localhost:8080/like/likeArticle', {
+                userId : this.props.currentUser.id,
+                articleId
+            }).then( res => {
+                let userId = this.state.normalUserId
+                if(this.props.currentUser) {
+                    userId = this.props.currentUser.id
+                }
+                this.props.loadData(this.state.page, this.state.pageSize, userId);
+            })
+        }
+        else {
+           this.props.showTip()
+        }
+    }
+
+    unLikeArticle(articleId) {
+        if(this.props.currentUser) {
+            axios.post('http://localhost:8080/like/unLikeArticle', {
+                userId : this.props.currentUser.id,
+                articleId
+            }).then( res => {
+                let userId = this.state.normalUserId
+                if(this.props.currentUser) {
+                    userId = this.props.currentUser.id
+                }
+                this.props.loadData(this.state.page, this.state.pageSize, userId);
+            })
+        }
+        else {
+           this.props.showTip()
+        }
+    }
 }
 
 const mapState = (state) => {
     return {
-        articles: state.getIn(['home', 'articles'])
+        articles: state.getIn(['home', 'articles']),
+        currentUser : state.getIn(['home', 'currentUser'])
     }
 }
 
 const mapDispatch = (dispatch) => {
     return {
-        loadData(page, pageSize) {
-            dispatch(homeActionCreators.getArticles(page, pageSize))
+        loadData(page, pageSize, userId) {
+            dispatch(homeActionCreators.getArticles(page, pageSize, userId))
+        },
+        showTip() {
+            dispatch(homeActionCreators.changeHeaderTips({
+                status : true,
+                message : "登录后才能点赞哟"
+            }))
         }
     }
 }

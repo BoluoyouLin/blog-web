@@ -6,7 +6,9 @@ import {
     ArticleTitle,
     ArticleText,
     ArticleAuthorImage,
-    InfoWrapper
+    InfoWrapper,
+    ListBottom,
+    BottomItem
 } from '../styled';
 import portraitImg from '../../../../../statics/images/portrait.png';
 import { personnelActionCreators } from '../../../store';
@@ -34,11 +36,38 @@ class Articles extends PureComponent {
                                     className = 'username'
                                     onClick = {() => this.goPersonnel(item.authorId)}
                                     >{item.userName}</ArticleText>
-                                    <ArticleText>发布于 {item.createAt}</ArticleText>
+                                    <ArticleText
+                                    className = "date"
+                                    >发布于 {item.createAt}</ArticleText>
                                 </InfoWrapper>
                                 <ArticleTitle
                                 onClick = {() => this.goArticleDetails(item.id)}
                                 >{item.title}</ArticleTitle>
+                                <ListBottom>
+                                            {
+                                                item.userLike 
+                                                ?
+                                                <BottomItem
+                                                onClick = {() => this.unLikeArticle(item.id)}
+                                                >
+                                                    <span
+                                                    className="iconfont zoom">&#xe60c;</span>
+                                                    {item.likesCount}
+                                                </BottomItem>
+                                                :
+                                                <BottomItem
+                                                onClick = {() => this.likeArticle(item.id)}
+                                                >
+                                                    <span 
+                                                    className="iconfont zoom">&#xe616;</span>
+                                                    {item.likesCount}
+                                                </BottomItem>
+                                            }
+                                            <BottomItem>
+                                            <span className="iconfont zoom">&#xe600;</span>
+                                            {item.commentCount}
+                                        </BottomItem>
+                                    </ListBottom>
                             </ArticleItem>
                         )
                     })
@@ -62,6 +91,24 @@ class Articles extends PureComponent {
             articleId
         })
     }
+
+    likeArticle(articleId) {
+        if(this.props.currentUser) {
+            this.props.likeArticle(this.props.currentUser.id, articleId)
+        }
+        else {
+           this.props.showTip()
+        }
+    }
+
+    unLikeArticle(articleId) {
+        if(this.props.currentUser) {
+            this.props.unLikeArticle(this.props.currentUser.id, articleId)
+        }
+        else {
+           this.props.showTip()
+        }
+    }
 }
 
 const mapState = (state) => ({
@@ -73,6 +120,12 @@ const mapDispatch = (dispatch) => {
     return {
         getArticles(id) {
             dispatch(personnelActionCreators.getArticle(id))
+        },
+        likeArticle(userId, articleId) {
+            dispatch(personnelActionCreators.likeArticle(userId, articleId))
+        },
+        unLikeArticle(userId, articleId) {
+            dispatch(personnelActionCreators.unLikeArticle(userId, articleId))
         }
     }
 }

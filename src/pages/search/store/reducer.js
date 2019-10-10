@@ -9,7 +9,7 @@ export default (state = defaultState, action) => {
     switch(action.type) {
         case searchActionTypes.SEARCH_ARTICLES :
             return state.merge({
-                'articles' : action.data.articleList
+                'articles' : action.data
             })
         default:
             return state

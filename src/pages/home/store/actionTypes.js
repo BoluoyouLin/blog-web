@@ -7,3 +7,4 @@ export const CHANGE_DESC = 'change_desc';
 export const CHANGE_HOME_PAGE = 'change_home_page';
 export const CHANGE_LOGIN_STATUS = 'change_login_status';
 export const CHANGE_HEADER_STATUS = 'change_header_status';
+export const LOGOUT = 'logout';

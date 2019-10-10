@@ -27,7 +27,7 @@ class Login extends PureComponent {
 
         return(
             <LoginWrapper>
-                    <LoginTitle>菠萝·写你所想</LoginTitle>
+                    <LoginTitle>菠萝Blog·写你所想</LoginTitle>
                     <Input 
                     placeholder='用户名' 
                     value = {userName}

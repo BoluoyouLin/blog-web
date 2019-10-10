@@ -26,12 +26,13 @@ const changeHomePage = (data) => ({
     data
 })
 
-export const getArticles = (page, pageSize) => {
+export const getArticles = (page, pageSize, userId) => {
     return (dispatch) => {
         axios.post('http://localhost:8080/article/getArticleListInHomePage',
         {
             page, 
-            pageSize
+            pageSize,
+            userId
         }
         ).then(res => {
             dispatch(loadHomeData(res.data.data))
@@ -135,4 +136,18 @@ export const changeHeaderTips = (data) => ({
     type : homeActionTypes.CHANGE_HEADER_STATUS,
     data
 })
+
+const changeCurrentUser = (data) => ({
+    type : homeActionTypes.LOGOUT,
+    data
+})
+
+export const logout = () => {
+    return (dispatch) => {
+        dispatch(changeCurrentUser(undefined))
+    }
+}
+
+
+    
 

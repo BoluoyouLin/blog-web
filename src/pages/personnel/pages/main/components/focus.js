@@ -9,11 +9,12 @@ import {
 } from '../styled';
 import normalPortrait from '../../../../../statics/images/portrait.png';
 import { personnelActionCreators } from '../../../store';
+import { withRouter } from 'react-router-dom';
 
 class Focus extends PureComponent {
     render() {
 
-        const { focus } = this.props;
+        const { focus, currentUser } = this.props;
         return (
             <Fragment>
                 { 
@@ -25,10 +26,15 @@ class Focus extends PureComponent {
                         return (
                             <ActivitiesItem key={item.id}>
                                 <ActivitiesImg
+                                onClick = { () => this.goUserHomePage(item.id)}
                                 src = { item.portrait || normalPortrait}
                                 />
-                                <Text className = 'name' >{ item.userName }</Text>
-                                <FocusButton>已关注</FocusButton>
+                                <Text 
+                                onClick = { () => this.goUserHomePage(item.id)}
+                                className = 'name' >{ item.userName }</Text>
+                                <FocusButton
+                                onClick = {() => this.handleUnFocusUser(currentUser.id, item.id)}
+                                >已关注</FocusButton>
                             </ActivitiesItem>
                         )
                     })
@@ -38,7 +44,18 @@ class Focus extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getFocus(this.props.currentUser.id);
+        this.props.getFocus(this.props.location.state.userId);
+    }
+
+    handleUnFocusUser(userId, focusId) {
+        this.props.unFocusUser(userId, focusId)
+        this.props.getFocus(userId)
+    }
+
+    goUserHomePage(userId) {
+        this.props.history.push('/userHomePage', {
+            userId
+        })
     }
 }
 
@@ -51,8 +68,11 @@ const mapDispatch = (dispatch) => {
     return {
         getFocus(id) {
             dispatch(personnelActionCreators.getFocus(id))
+        },
+        unFocusUser(userId, focusId) {
+            dispatch(personnelActionCreators.unFocusUser(userId, focusId))
         }
     }
 }
 
-export default connect(mapState, mapDispatch)(Focus);
+export default withRouter(connect(mapState, mapDispatch)(Focus));

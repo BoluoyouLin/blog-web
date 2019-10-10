@@ -21,9 +21,9 @@ class UserInfo extends PureComponent {
     render() {
         return (
             <UserInfoWrapper>
-                <LoginTitle>菠萝·写你所想</LoginTitle>
+                <LoginTitle>菠萝Blog·写你所想</LoginTitle>
                 <Portrait src = { this.props.currentUser.portrait || portrait}/>
-                <UserName>{ this.props.currentUser.userName }</UserName>
+                <UserName className = "login">{ this.props.currentUser.userName }</UserName>
             </UserInfoWrapper>
         )
     }

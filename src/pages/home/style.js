@@ -30,22 +30,28 @@ export const ListItem = styled.div`
 `;
 
 export const ListTitle = styled.p`
-    padding: 15px 0;
+    padding: 15px 4px;
     width: 100%;
     font-size: 20px;
     font-weight: 500;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
+    color: #333;
 `;
 
 export const ArticleText = styled.span`
-    font-size: 15px;
+    font-size: 14px;
     color: #878787;
     margin: 0 4px;
     &.username {
         cursor: pointer;
+        font-size: 16px;
+        color: #333;
+    }
+    &.date {
+        font-weight: 300;
     }
 `;
 
@@ -56,17 +62,21 @@ export const Information = styled.div`
 
 export const ListBottom = styled.div`
     display: flex;
+    margin-left: 4px;
 `;
 
 export const BottomItem = styled.div`
     text-align: center;
     padding: 2px 4px;
-    color: #ecdba6;
+    color: #fbd103;
     font-size: 14px;
     line-height: 20px;
-    border: 1px solid #ecdba6;
+    border: 1px solid #fbd103;
     margin-left: 2px;
     cursor: pointer;
+    .zoom {
+        margin-right: 5px;
+    }
 `;
 
 // login.js
@@ -79,11 +89,14 @@ export const LoginWrapper = styled.div`
 
 export const LoginTitle = styled.div`
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 300;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
-    margin-bottom: 20px;      
+    margin-bottom: 20px; 
+    &.login {
+        color : #fff;
+    }
 `;
 
 export const Input = styled.input`
@@ -108,6 +121,7 @@ export const LoginBottom = styled.div`
     margin-bottom: 10px;
     text-align: center;
     cursor: pointer;
+    font-weight: 300;
 `;
 
 // userInfo.js
@@ -115,9 +129,11 @@ export const LoginBottom = styled.div`
 export const UserInfoWrapper = styled.div`
     width: 30%;
     padding: 20px 10px;
-    background-color: #fff;
     height: 150px;
-    text-align: center; 
+    text-align: center;
+    background: #fbd103;
+    border: 5px solid #fff;
+    border-radius: 25px;
 `;
 
 export const Portrait = styled.img`
@@ -135,7 +151,7 @@ export const UserName = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 18px;
-    font-weight: 500;
-    color: #fdb103;
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
 `;

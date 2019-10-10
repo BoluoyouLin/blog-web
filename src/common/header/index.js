@@ -21,9 +21,18 @@ import Error from '../error';
 
 class Header extends PureComponent {
 
+    constructor() {
+        super()
+        this.state = {
+            page : 0,
+            pageSize : 20
+        }
+    }
+
     render() {
 
-        const { currentUser, showBar, handleShowBar, isShow, message, handleClickNoLogin} = this.props;
+        const { currentUser, showBar, handleShowBar, isShow, message, handleClickNoLogin, logout} 
+        = this.props;
 
         return(
             <HeaderWrapper>
@@ -68,7 +77,9 @@ class Header extends PureComponent {
                                 设置
                             </BarItem>
                         </Link>
-                        <BarItem>
+                        <BarItem
+                        onClick = {() => logout()}
+                        >
                             <span className="iconfont zoom">&#xe613;</span>
                             登出
                         </BarItem>
@@ -98,9 +109,16 @@ class Header extends PureComponent {
     }
 
     handleEnterKey(e) {
-        if(e.nativeEvent.keyCode === 13){ //e.nativeEvent获取原生的事件对像
-            this.props.searchArticles(e.target.value)
-            this.props.history.push('/search');
+        if(e.nativeEvent.keyCode === 13){ //e.nativeEvent获取原生的事件对像 
+            let userId = 0
+            if(this.props.currentUser) {
+                userId = this.props.currentUser.id
+            }
+            this.props.searchArticles(e.target.value, this.state.page, 
+                this.state.pageSize, userId)
+            this.props.history.push('/search', {
+                keyword : e.target.value
+            });
         }
     }
 
@@ -130,8 +148,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => {
     return {
-        searchArticles(keyword) {
-            dispatch(searchActionCreators.searchArticle(keyword))
+        searchArticles(keyword, page, pageSize, userId) {
+            dispatch(searchActionCreators.searchArticle(page, pageSize, keyword, userId))
         },
         handleShowBar(e) {
             e.nativeEvent.stopImmediatePropagation()
@@ -159,6 +177,9 @@ const mapDispatch = (dispatch) => {
                     message : ''
                 }))
             }, 3000)
+        },
+        logout() {
+            dispatch(homeActionCreators.logout())
         }
     }
 }

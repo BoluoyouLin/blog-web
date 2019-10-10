@@ -40,6 +40,8 @@ export default (state = defaultState, action) => {
             });
         case personnelActionTypes.CHANGE_HOME_PAGE_USER :
             return state.set('homePageUser', action.data);
+        case personnelActionTypes.CHANGE_IS_FOCUS :
+            return state.set('isFocus', action.data)
         default :
             return state;
     }

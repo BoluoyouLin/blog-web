@@ -111,7 +111,7 @@ export const ArticleButton = styled.div`
     height: 40px;
     float: right;
     width: 91px;
-    background: #fdb103;
+    background: #fbd103;
     color: #fff;
     border-radius: 4px;
     text-align: center;

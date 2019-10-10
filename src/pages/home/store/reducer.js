@@ -49,7 +49,9 @@ export default (state = defaultState, action) => {
             return state.merge({
                 'headerTipStatus' : action.data.status,
                 'headerTips' : action.data.message
-            })
+            });
+        case homeActionTypes.LOGOUT :
+            return state.set('currentUser', action.data)
         default:
             return state;
     }

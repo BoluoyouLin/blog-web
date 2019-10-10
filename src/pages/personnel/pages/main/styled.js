@@ -106,6 +106,7 @@ export const ActivitiesImg = styled.img`
     width: 45px;
     height: 45px;
     border-radius: 50%;
+    cursor: pointer;
 `;
 
 export const Text = styled.span`
@@ -116,6 +117,7 @@ export const Text = styled.span`
         font-weight: 600;
         font-size: 15px;
         color: #17181a;
+        cursor: pointer;
     }
 `;
 
@@ -156,11 +158,16 @@ export const ArticleTitle = styled.p`
 `;
 
 export const ArticleText = styled.span`
-    font-size: 15px;
+    font-size: 16px;
     color: #878787;
     margin: 0 4px;
     &.username {
         cursor: pointer;
+        color: #333;
+    }
+    &.date {
+        font-weight: 300;
+        font-size: 14px;
     }
 `;
 
@@ -210,10 +217,13 @@ export const ListBottom = styled.div`
 export const BottomItem = styled.div`
     text-align: center;
     padding: 2px 4px;
-    color: #ecdba6;
+    color: #fbd103;
     font-size: 14px;
     line-height: 20px;
-    border: 1px solid #ecdba6;
+    border: 1px solid #fbd103;
     margin-left: 2px;
     cursor: pointer;
+    .zoom {
+        margin-right: 5px;
+    }
 `;

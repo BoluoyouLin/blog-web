@@ -17,11 +17,11 @@ export const TopBar = styled.div`
 `;
 
 export const Title = styled.div`
-    line-height: 70px;
+    margin: 29px 0 21px;
     text-align: center;
     color: #fbd103;
     font-size: 20px;
-    font-weight: 500px;
+    font-weight: 300;
     position: absolute;
     left: 180px;
 `;
@@ -104,7 +104,7 @@ export const DetailsHeader = styled.div`
 export const DetailsTitle = styled.div`
     color: #fff;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 35px;
     margin-bottom: 30px;
 `;
 
@@ -117,6 +117,10 @@ export const InfoItem = styled.p`
     margin: 0 15px;
     color: #fff;
     font-size: 14px;
+    font-weight: 300;
+    &.userName {
+        cursor: pointer;
+    }
 `;
 
 export const DetailsBody = styled.div`
@@ -124,8 +128,30 @@ export const DetailsBody = styled.div`
     margin: 0 auto;
     margin-top: 20px;
     background: #fff;
-    padding: 50px 30px;
+    padding: 50px 30px 10px;
     box-sizing: border-box;
     font-size: 16px;
     color: #333;
+`;
+
+export const ArticleContent = styled.div`
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    padding: 30px 0; 
+`;
+
+export const InfoBar = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    line-height: 30px;
+    margin: 20px;
+`;
+
+export const InfoBarItem = styled.p`
+    margin: 0 8px;
+    color: #fbd103;
+    cursor: pointer;
+    .zoom {
+        margin-right: 5px;
+    }
 `;

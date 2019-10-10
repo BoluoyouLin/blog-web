@@ -28,13 +28,22 @@ class UserHomePage extends PureComponent {
             console.error(e)
             this.props.history.push('/');
         }
-        this.props.getHomePageUser(userId);
-        this.props.getUserArticles(userId);
+        if( this.props.currentUser && userId === this.props.currentUser.id) {
+            this.props.history.push('/personnel', {
+                userId
+            })
+        }
+        else {
+            this.props.getHomePageUser(userId);
+            this.props.getUserArticles(userId);
+        }
     }
 
 }
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+    currentUser : state.getIn(['home', 'currentUser'])
+})
 
 const mapDispatch = (dispatch) => ({
     getHomePageUser(userId) {
