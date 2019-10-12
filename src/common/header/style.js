@@ -66,7 +66,7 @@ export const Portrait = styled.img`
 
 export const PersonnelBar = styled.div`
     width: 150px;
-    height: 200px;
+    height: 170px;
     background: #fff;
     position: absolute;
     right: 150px;

@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { articleActionCreators } from '../store';
 import 'braft-editor/dist/output.css';
 import { homeActionCreators } from '../../home/store';
+import Comment from '../../../common/comment';
 
 
 class ArticleDetails extends PureComponent {
@@ -66,6 +67,7 @@ class ArticleDetails extends PureComponent {
                                     </InfoBarItem>
                         </InfoBar>
                     </DetailsBody>
+                    <Comment />
                 </DetailsWrapper>
             </Fragment>
         )
@@ -77,6 +79,7 @@ class ArticleDetails extends PureComponent {
             userId = this.props.currentUser.id
         }
         this.props.getArticleDetails(userId, this.props.location.state.articleId)
+        this.props.getArticleComment(this.props.location.state.articleId, 0, 20);
     }
 
     likeArticle(articleId) {
@@ -130,6 +133,9 @@ const mapDispatch = (dispatch) => ({
             status : true,
             message
         }))
+    },
+    getArticleComment(articleId, page, pageSize) {
+        dispatch(articleActionCreators.getArticleComment(articleId, page, pageSize))
     }
 })
 

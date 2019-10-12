@@ -11,6 +11,11 @@ const changeDetailsArticle = (data) => ({
     data
 })
 
+const changeArticleComment = (data) => ({
+    type : articleActionTypes.CHANGE_ARTICLE_COMMENT,
+    data
+})
+
 export const saveTemplateArticle = (title, article) => {
     return (dispatch) => {
         let data = {
@@ -55,6 +60,44 @@ export const unLikeArticle = (userId, articleId) => {
                 articleId
             }).then( res => {
                 dispatch(getArticleDetails(userId, articleId))
+        })
+    }
+}
+
+export const getArticleComment = (articleId, page, pageSize) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/comment/getArticleComment', {
+            articleId,
+            page,
+            pageSize
+        }).then( res => {
+            dispatch(changeArticleComment(res.data.data))
+        })
+    }
+}
+
+export const insertCommentByArticle = (userId, articleId, content) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/comment/insertByArticleComment', {
+            userId,
+            articleId,
+            content
+        }).then(res => {
+            dispatch(getArticleComment(articleId, 0, 20))
+            dispatch(getArticleDetails(userId, articleId))
+        })
+    }
+}
+
+export const insertComment = (userId, forId, content, articleId) => {
+    return (dispatch) => {
+        axios.post('http://localhost:8080/comment/insertByComment', {
+            userId,
+            forId,
+            content
+        }).then(res => {
+            dispatch(getArticleComment(articleId, 0, 20))
+            dispatch(getArticleDetails(userId, articleId))
         })
     }
 }

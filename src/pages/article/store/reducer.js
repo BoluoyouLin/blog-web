@@ -5,6 +5,7 @@ const defaultState = fromJS({
     article : '',
     articleTitle: '',
     detailsArticle: {},
+    articleComment : []
 })
 
 export default (state = defaultState, action) => {
@@ -20,7 +21,9 @@ export default (state = defaultState, action) => {
                 'articleTitle' : ''
             });
         case articleActionTypes.CHANGE_DETAILS_ARTICLE :
-            return state.set('detailsArticle', action.data)
+            return state.set('detailsArticle', action.data);
+        case articleActionTypes.CHANGE_ARTICLE_COMMENT :
+            return state.set('articleComment', action.data);
         default:
             return state;
     }

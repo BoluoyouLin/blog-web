@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { searchActionCreators } from './store';
 import { homeActionCreators } from '../home/store'; 
 import portraitImg from '../../statics/images/portrait.png';
+import Nothing from '../../common/nothing';
 
 class Search extends PureComponent {
 
@@ -30,6 +31,10 @@ class Search extends PureComponent {
                 <Header />
                 <ListWrapper>
                 {
+                    this.props.articles.length === 0
+                    ?
+                    <Nothing />
+                    :
                     this.props.articles.map( item => {
                         return (
                             <ListItem key={item.id}>
