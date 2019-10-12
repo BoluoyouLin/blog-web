@@ -31,7 +31,7 @@ class Header extends PureComponent {
 
     render() {
 
-        const { currentUser, showBar, handleShowBar, isShow, message, handleClickNoLogin, logout} 
+        const { currentUser, showBar, handleShowBar, isShow, message, handleClickNoLogin } 
         = this.props;
 
         return(
@@ -78,7 +78,7 @@ class Header extends PureComponent {
                             </BarItem>
                         </Link>
                         <BarItem
-                        onClick = {() => logout()}
+                        onClick = {() => this.logout()}
                         >
                             <span className="iconfont zoom">&#xe613;</span>
                             登出
@@ -136,6 +136,11 @@ class Header extends PureComponent {
 
     componentDidUpdate() {
         this.props.handleHiddenError();
+    }
+
+    logout() {
+        this.props.logout();
+        this.props.history.push('/');
     }
 }
 
